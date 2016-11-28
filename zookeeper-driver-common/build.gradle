@@ -1,5 +1,3 @@
-apply plugin: 'maven'
-
 // jar包的名字
 archivesBaseName = 'zookeeper-driver-common'
 

@@ -4,8 +4,8 @@ import java.text.SimpleDateFormat
 // Settings
 ext {
     /** Project constants */
-    project_group = 'org.sagesource'
-    project_name = 'zookeeper-driver'
+    project_group = group
+    project_name = name
 
     project_description = 'The Simple Zookeeper Manager Platform.'
 
@@ -63,29 +63,22 @@ ext {
     }
 }
 
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'war'
 
 apply from: 'dependency.gradle'
-
 /** 全局项目配置 */
 allprojects {
-
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+    apply plugin: 'java'
+    apply plugin: 'maven'
 }
 
 /** 子工程配置 */
 subprojects { subproj ->
     group = ""
 
-    apply plugin: 'java'
     sourceCompatibility = project_jdk
     targetCompatibility = project_jdk
-
-    apply plugin: 'maven'
-    apply plugin: 'idea'
-    apply plugin: 'eclipse'
 
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
@@ -149,5 +142,7 @@ subprojects { subproj ->
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.2.1'
+    gradleVersion = gradleVersion
 }
+
+
