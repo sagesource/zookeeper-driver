@@ -1,0 +1,3 @@
+rootProject.name = 'zookeeper-driver'
+include 'zookeeper-driver-common'
+
