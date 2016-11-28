@@ -26,6 +26,7 @@
         <maven.resources.plugin.version>3.0.1</maven.resources.plugin.version>
         <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>
         <maven.war.plugin.version>3.0.0</maven.war.plugin.version>
+        <maven.mybatis-generator.plugin.version>1.3.5</maven.mybatis-generator.plugin.version>
 
         <!-- Libs Version-->
         <spring.version>4.3.3.RELEASE</spring.version>
@@ -34,6 +35,7 @@
         <curator.version>3.2.1</curator.version>
         <mybatis.version>3.4.1</mybatis.version>
         <mybatis-spring.version>1.3.0</mybatis-spring.version>
+        <mysql.version>5.1.39</mysql.version>
     </properties>
 
     <dependencyManagement>
@@ -60,13 +62,20 @@
                 <version>${spring.version}</version>
             </dependency>
 
+            <!-- MySQL -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+
             <!-- Mybatis -->
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis-spring</artifactId>
@@ -203,13 +212,13 @@
                     <version>${maven.war.plugin.version}</version>
                     <configuration>
                         <!-- 生成的war包名字 -->
-                        <warName>zookeeper-driver-webapp</warName>
+                        <warName>${project.name}-${project.version}</warName>
                         <!-- 指定web.xml的路径 -->
                         <webXml>src\webapps\WEB-INF\web.xml</webXml>
                         <webResources>
                             <resource>
                                 <directory>src/main/resources/${package.environment}</directory>
-                                <targetPath>WEB-INF/classes//${package.environment}</targetPath>
+                                <targetPath>WEB-INF/classes/${package.environment}</targetPath>
                                 <filtering>true</filtering>
                             </resource>
                             <resource>
@@ -220,6 +229,48 @@
                             </resource>
                         </webResources>
                     </configuration>
+                </plugin>
+
+                <!-- mybatis-generator-maven-plugin -->
+                <plugin>
+                    <groupId>org.mybatis.generator</groupId>
+                    <artifactId>mybatis-generator-maven-plugin</artifactId>
+                    <version>${maven.mybatis-generator.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>Generate MyBatis Artifacts</id>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <!-- 指定配置文件路径 -->
+                        <configurationFile>
+                            ${project.parent.basedir}/db/generatorConfig.xml
+                        </configurationFile>
+                        <!--允许移动生成的文件-->
+                        <verbose>true</verbose>
+                        <!--允许覆盖生成的文件-->
+                        <overwrite>true</overwrite>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>${mysql.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.mybatis.generator</groupId>
+                            <artifactId>mybatis-generator-core</artifactId>
+                            <version>${maven.mybatis-generator.plugin.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.mybatis</groupId>
+                            <artifactId>mybatis</artifactId>
+                            <version>${mybatis.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
