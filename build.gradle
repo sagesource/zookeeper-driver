@@ -71,11 +71,6 @@ allprojects {
     apply plugin: 'eclipse'
     apply plugin: 'java'
     apply plugin: 'maven'
-}
-
-/** 子工程配置 */
-subprojects { subproj ->
-    group = ""
 
     sourceCompatibility = project_jdk
     targetCompatibility = project_jdk
@@ -83,9 +78,15 @@ subprojects { subproj ->
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
     repositories {
-        mavenCentral()
+        //mavenCentral()
+        maven { url aliyunMavenRepositories }
         maven { url springMavenRepositories }
     }
+}
+
+/** 子工程配置 */
+subprojects { subproj ->
+    group = ""
 
     /** 编译打Jar包选项 */
     jar {
