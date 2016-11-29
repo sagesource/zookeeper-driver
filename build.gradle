@@ -1,0 +1,148 @@
+import java.text.SimpleDateFormat
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Settings
+ext {
+    /** Project constants */
+    project_group = group
+    project_name = name
+
+    project_description = 'The Simple Zookeeper Manager Platform.'
+
+    /** 编译版本 */
+    project_jdk = '1.8'
+    project_web = '3.0'
+    project_encoding = 'UTF-8'
+
+    /** 生成 manifest 的方法，在打 jar 包或者 war 包时候调用 */
+    defaultManifest = { proj ->
+        return manifest {
+            def buildTimeAndDate = new Date()
+            def buildDate = new SimpleDateFormat('yyyy-MM-dd').format(buildTimeAndDate)
+            def buildTime = new SimpleDateFormat('HH:mm').format(buildTimeAndDate)
+
+            attributes 'Build-Date': buildDate
+            attributes 'Build-Time': buildTime
+            attributes 'Timestamp': String.valueOf(System.currentTimeMillis())
+            attributes 'Specification-Title': proj.archivesBaseName
+            attributes 'Specification-Version': proj.version
+            attributes 'Specification-Vendor': project_group
+            attributes 'Implementation-Title': proj.archivesBaseName
+            attributes 'Implementation-Version': proj.version
+            attributes 'Implementation-Vendor': project_group
+            attributes 'provider': 'gradle'
+        }
+    }
+
+    /** Used where gradle task evaluation would fail because of an undefined value, even if the task wasn't targeted. */
+    defaultBlank = { closure ->
+        try {
+            closure()
+        } catch (MissingPropertyException e) {
+            ''
+        }
+    }
+
+    /**
+     * 子项目中调用，用于生成编译数字，此数字可以作为版本号的一个组成部分。
+     *
+     * 存储位置为子项目下的 build_number.properties,此文件与子项目的 build.gradle 平级
+     */
+    buildNumberIncrease = {
+        def _build_number_file = new File('build_number.properties')
+        def buildNumber = _build_number_file.text.toInteger()
+
+        println '-- Old build number: ' + _build_number_file.text
+        buildNumber++
+        println '-- New build number: ' + buildNumber
+
+        _build_number_file.text = buildNumber
+
+        return buildNumber
+
+    }
+}
+
+
+apply from: 'dependency.gradle'
+/** 全局项目配置 */
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+    apply plugin: 'java'
+    apply plugin: 'maven'
+}
+
+/** 子工程配置 */
+subprojects { subproj ->
+    group = ""
+
+    sourceCompatibility = project_jdk
+    targetCompatibility = project_jdk
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    repositories {
+        mavenCentral()
+        maven { url springMavenRepositories }
+    }
+
+    /** 编译打Jar包选项 */
+    jar {
+        excludes = ['**/rebel.xml']
+
+        doFirst {
+            // 生成jar 包的时候按此规则生成 manifest 文件
+            manifest = defaultManifest({ subproj })
+        }
+    }
+
+    /** 打源码Jar包任务 */
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+        doFirst {
+            manifest = defaultManifest({ subproj })
+        }
+    }
+
+    artifacts {
+        archives jar
+        //archives sourcesJar
+    }
+
+    configurations {
+        deployerJars
+    }
+
+    /** 依赖配置 */
+    dependencies {
+        // 用于上传自己项目的jar 包到中心 maven 库
+        deployerJars "org.apache.maven.wagon:wagon-ssh:2.2"
+
+        //通用依赖
+        compile(
+        )
+        //通用测试依赖
+        testCompile(
+                libraries.'junit',
+                libraries.'spring-test'
+        )
+    }
+
+    /** 上传Jar包到Maven私服 */
+    uploadArchives {
+        //TODO:
+    }
+
+    /** 显示当前项目下所有用于 compile 的 jar. */
+    task listJars(description: 'Display all compile jars.') << {
+        configurations.compile.each { File file -> println file.name }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = gradleVersion
+}
+
+

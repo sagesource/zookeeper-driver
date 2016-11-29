@@ -1,0 +1,38 @@
+//依赖管理
+ext.versions = [
+        springVersion       : '4.3.3.RELEASE',
+        servletVersion      : '3.1.0',
+        junitVersion        : '4.12',
+        zkCuratorVersion    : '3.2.1',
+        mybatisVersion      : '3.4.1',
+        mybatisSpringVersion: '1.3.0',
+        mysqlVersion        : '5.1.39',
+        commonsLong3Version : '3.5'
+]
+
+ext.libraries = [
+        //Junit
+        "junit"                 : "junit:junit:${versions.junitVersion}",
+
+        //Spring Framework
+        "spring-test"           : "org.springframework:spring-test:${versions.springVersion}",
+        "spring-webmvc"         : "org.springframework:spring-webmvc:${versions.springVersion}",
+        "spring-context-support": "org.springframework:spring-context-support:${versions.springVersion}",
+        "spring-jdbc"           : "org.springframework:spring-jdbc:${versions.springVersion}",
+
+        //MySQL
+        "mysql"                 : "mysql:mysql-connector-java:${versions.mysqlVersion}",
+
+        //MyBatis
+        "mybatis"               : "org.mybatis:mybatis:${versions.mybatisVersion}",
+        "mybatis-spring"        : "org.mybatis:mybatis-spring:${versions.mybatisSpringVersion}",
+
+        //Servlet
+        "servlet"               : "javax.servlet:javax.servlet-api:${versions.servletVersion}",
+
+        //Zookeeper Curator Framework
+        "zkCurator"             : "org.apache.curator:curator-framework:${versions.zkCuratorVersion}",
+
+        //Apache Commons
+        "commons-lang3"         : "org.apache.commons:commons-lang3:${versions.commonsLong3Version}"
+]

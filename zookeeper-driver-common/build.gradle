@@ -1,0 +1,7 @@
+// jar包的名字
+archivesBaseName = 'zookeeper-driver-common'
+
+dependencies {
+    compile(libraries.'servlet')
+    compile(libraries.'commons-lang3')
+}
