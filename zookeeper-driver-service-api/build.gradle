@@ -1,0 +1,2 @@
+// jar包的名字
+archivesBaseName = 'zookeeper-driver-service-api'

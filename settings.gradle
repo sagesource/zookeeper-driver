@@ -1,4 +1,6 @@
 rootProject.name = 'zookeeper-driver'
 include 'zookeeper-driver-common'
 include 'zookeeper-driver-webapp'
+include 'zookeeper-driver-service'
+include 'zookeeper-driver-service-api'
 

@@ -63,7 +63,11 @@ ext {
     }
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = gradleVersion
+}
 
+//..... 项目编译配置 .....//
 apply from: 'dependency.gradle'
 /** 全局项目配置 */
 allprojects {
@@ -90,8 +94,6 @@ subprojects { subproj ->
 
     /** 编译打Jar包选项 */
     jar {
-        excludes = ['**/rebel.xml']
-
         doFirst {
             // 生成jar 包的时候按此规则生成 manifest 文件
             manifest = defaultManifest({ subproj })
@@ -109,7 +111,7 @@ subprojects { subproj ->
 
     artifacts {
         archives jar
-        //archives sourcesJar
+        archives sourcesJar
     }
 
     configurations {
@@ -135,15 +137,67 @@ subprojects { subproj ->
     uploadArchives {
         //TODO:
     }
-
-    /** 显示当前项目下所有用于 compile 的 jar. */
-    task listJars(description: 'Display all compile jars.') << {
-        configurations.compile.each { File file -> println file.name }
-    }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = gradleVersion
+//.....   插件配置  ......//
+configurations {
+    mybatisGenerator
+}
+
+dependencies {
+    mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.3.2'
+    mybatisGenerator 'mysql:mysql-connector-java:5.1.39'
+    mybatisGenerator 'tk.mybatis:mapper:3.3.8'
+}
+
+/** Mybatis Generator 配置 */
+def getDbProperties = { // 获取数据库配置 -Dprofile=development
+    def env = System.getProperty("profile") ?: "development"
+    def properties = new Properties()
+    file(this.name + "-webapp/src/main/resources/${env}/jdbc-${env}.properties").withInputStream { inputStream ->
+        properties.load(inputStream)
+    }
+    properties;
+}
+
+task mybatisGenerate () {
+    def properties = getDbProperties()
+
+    ant.properties['driverClass'] = properties.getProperty("jdbc.driverClass")
+    ant.properties['connectionURL'] = properties.getProperty("jdbc.url")
+    ant.properties['userId'] = properties.getProperty("jdbc.username")
+    ant.properties['password'] = properties.getProperty("jdbc.password")
+    ant.properties['modelPackage'] = this.modelPackage
+    ant.properties['mapperPackage'] = this.mapperPackage
+    ant.properties['sqlMapperPackage'] = this.sqlMapperPackage
+
+    //配置生成的类输出根路径
+    def src_main_java = this.name + "-service/src/main/java"
+    def src_main_resource = this.name + "-service/src/main/resources"
+
+    ant.properties['src_main_java'] = src_main_java
+    ant.properties['src_main_resources'] = src_main_resource
+
+    ant.taskdef(
+            name: 'mbgenerator',
+            classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+            classpath: configurations.mybatisGenerator.asPath
+    )
+    ant.mbgenerator(overwrite: true,
+            configfile: 'db/generatorConfig.xml', verbose: true) {
+        propertyset {
+            propertyref(name: 'targetProject')
+            propertyref(name: 'userId')
+            propertyref(name: 'driverClass')
+            propertyref(name: 'connectionURL')
+            propertyref(name: 'password')
+            propertyref(name: 'src_main_java')
+            propertyref(name: 'src_main_resources')
+            propertyref(name: 'modelPackage')
+            propertyref(name: 'mapperPackage')
+            propertyref(name: 'sqlMapperPackage')
+        }
+    }
 }
 
 

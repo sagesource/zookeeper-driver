@@ -2,6 +2,8 @@
 archivesBaseName = 'zookeeper-driver-common'
 
 dependencies {
-    compile(libraries.'servlet')
-    compile(libraries.'commons-lang3')
+    compile(
+            libraries.'servlet',
+            libraries.'commons-lang3'
+    )
 }
