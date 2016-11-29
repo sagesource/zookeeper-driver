@@ -1,1 +1,37 @@
+apply plugin: 'war'
 
+archivesBaseName = 'zookeeper-driver-webapp'
+
+/**
+ * 设置默认 resources 为开发环境状态
+ * 如果不设置的话，idea 编译时只会默认获取 resources 目录
+ */
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/resources', 'src/main/profile/' + env]
+        }
+    }
+}
+
+/** 编译打War包选项 */
+war {
+    doFirst {
+        manifest = defaultManifest(project)
+        // 忽略一些文件夹
+        // excludes = ['demo', 'static/js', 'static/css', 'static/less']
+    }
+}
+
+dependencies {
+    // 因为此项目为 web 项目，所以需要将下述 jar 包设置为 provided
+    providedCompile(
+            libraries.'servlet',
+            //libraries.'jsp-api'
+    )
+
+    compile(
+            project(':zookeeper-driver-service-api'),
+            project(':zookeeper-driver-common')
+    )
+}
