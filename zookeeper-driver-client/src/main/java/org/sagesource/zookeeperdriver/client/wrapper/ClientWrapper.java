@@ -2,13 +2,12 @@ package org.sagesource.zookeeperdriver.client.wrapper;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.api.WatchPathable;
+import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
 import org.sagesource.zookeeperdriver.client.dto.ZNodeDto;
 import org.sagesource.zookeeperdriver.client.dto.ZkDataDto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,11 +40,11 @@ public class ClientWrapper {
 		// 构建path
 		path = builtPath(path);
 		// 当前节点状态
-		Stat           stat             = new Stat();
-		List<String>   childrenNameList = curatorFramework.getChildren().storingStatIn(stat).forPath(path);
+		Stat         stat             = new Stat();
+		List<String> childrenNameList = curatorFramework.getChildren().storingStatIn(stat).forPath(path);
 
-		List<ZNodeDto> childrenList     = new ArrayList<>();
-		final String   finalPath        = path;
+		List<ZNodeDto> childrenList = new ArrayList<>();
+		final String   finalPath    = path;
 		// 遍历子节点 判断子节点是否为根节点
 		childrenNameList.forEach((childrenName) -> {
 			try {
@@ -87,6 +86,31 @@ public class ClientWrapper {
 		zkDataDto.setStat(stat);
 
 		return zkDataDto;
+	}
+
+	/**
+	 * 创建节点数据
+	 *
+	 * @param path 要创建的节点
+	 * @param data 节点的数据
+	 */
+	public void create(String path, byte[] data) throws Exception {
+		path = builtPath(path);
+
+		curatorFramework.create().withMode(CreateMode.PERSISTENT).forPath(path, data);
+	}
+
+	/**
+	 * 更新节点数据
+	 *
+	 * @param path 待更新的节点
+	 * @param data
+	 * @param oldVersion
+	 */
+	public void editData(String path, byte[] data, int oldVersion) throws Exception {
+		path = builtPath(path);
+
+		curatorFramework.setData().withVersion(oldVersion).forPath(path, data);
 	}
 
 	//.......................................//

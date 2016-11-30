@@ -60,7 +60,19 @@ public class ClientManagerTest {
 	@Test
 	public void wrapperReadData() throws Exception {
 		client = ClientManager.getZkClient("test", connectionString, true);
-		ZkDataDto data = client.readData("/sage/ucarinc");
+		ZkDataDto data = client.readData("/sage/wrapper");
 		System.out.println("data===" + ReflectionToStringBuilder.toString(data));
+	}
+
+	@Test
+	public void wrapperCreate() throws Exception {
+		client = ClientManager.getZkClient("test", connectionString, true);
+		client.create("/sage/wrapper", "sage-wrapper".getBytes());
+	}
+
+	@Test
+	public void wrapperSetNodeData() throws Exception {
+		client = ClientManager.getZkClient("test", connectionString, true);
+		client.editData("/sage/wrapper", "sage-111".getBytes(), 3);
 	}
 }
