@@ -47,6 +47,13 @@ public class ClientManagerTest {
 	}
 
 	@Test
+	public void wrapperExist() throws Exception {
+		client = ClientManager.getZkClient("test", connectionString, true);
+		boolean result = client.exist("/test");
+		System.out.println("====" + result + "====");
+	}
+
+	@Test
 	public void wrapperGetChildrenTest() throws Exception {
 		client = ClientManager.getZkClient("test", connectionString, true);
 
@@ -73,6 +80,12 @@ public class ClientManagerTest {
 	@Test
 	public void wrapperSetNodeData() throws Exception {
 		client = ClientManager.getZkClient("test", connectionString, true);
-		client.editData("/sage/wrapper", "sage-111".getBytes(), 3);
+		client.editData("/sage/wrapper", "sage-111".getBytes(), 1);
+	}
+
+	@Test
+	public void wrapperDelete() throws Exception {
+		client = ClientManager.getZkClient("test", connectionString, true);
+		client.delete("/sage", true);
 	}
 }

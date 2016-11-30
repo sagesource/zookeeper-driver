@@ -31,10 +31,25 @@ public class ClientWrapper {
 	//..............操作方法..................//
 
 	/**
+	 * 检查节点是否存在
+	 *
+	 * @param path 待检查的节点路径
+	 * @return true:已存在 false:不存在
+	 *
+	 * @throws Exception
+	 */
+	public boolean exist(String path) throws Exception {
+		path = builtPath(path);
+		Stat result = curatorFramework.checkExists().forPath(path);
+		return result != null;
+	}
+
+	/**
 	 * 获取节点的子节点
 	 *
 	 * @param path 节点
 	 * @return
+	 * @throws Exception
 	 */
 	public List<ZNodeDto> getChildren(String path) throws Exception {
 		// 构建path
@@ -74,6 +89,7 @@ public class ClientWrapper {
 	 *
 	 * @param path 节点
 	 * @return
+	 * @throws Exception
 	 */
 	public ZkDataDto readData(String path) throws Exception {
 		path = builtPath(path);
@@ -93,24 +109,39 @@ public class ClientWrapper {
 	 *
 	 * @param path 要创建的节点
 	 * @param data 节点的数据
+	 * @throws Exception
 	 */
 	public void create(String path, byte[] data) throws Exception {
 		path = builtPath(path);
-
-		curatorFramework.create().withMode(CreateMode.PERSISTENT).forPath(path, data);
+		curatorFramework.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(path, data);
 	}
 
 	/**
 	 * 更新节点数据
 	 *
-	 * @param path 待更新的节点
-	 * @param data
-	 * @param oldVersion
+	 * @param path       待更新的节点
+	 * @param data       更新数据
+	 * @param oldVersion 旧的数据版本
+	 * @throws Exception
 	 */
 	public void editData(String path, byte[] data, int oldVersion) throws Exception {
 		path = builtPath(path);
-
 		curatorFramework.setData().withVersion(oldVersion).forPath(path, data);
+	}
+
+	/**
+	 * 删除节点
+	 *
+	 * @param path        节点
+	 * @param delChildren 递归删除子节点,true-递归删除
+	 * @throws Exception
+	 */
+	public void delete(String path, boolean delChildren) throws Exception {
+		path = builtPath(path);
+		if (delChildren)
+			curatorFramework.delete().deletingChildrenIfNeeded().forPath(path);
+		else
+			curatorFramework.delete().guaranteed().forPath(path);
 	}
 
 	//.......................................//
