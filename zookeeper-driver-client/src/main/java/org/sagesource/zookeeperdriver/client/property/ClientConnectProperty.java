@@ -30,11 +30,11 @@ public class ClientConnectProperty {
 	/**
 	 * 连接超时时间
 	 */
-	private int         connectionTimeoutMs = 1000;
+	private int         connectionTimeoutMs = 10000;
 	/**
 	 * Session超时时间
 	 */
-	private int         sessionTimeoutMs    = 1000;
+	private int         sessionTimeoutMs    = 100000;
 
 	public String getClientKey() {
 		return clientKey;

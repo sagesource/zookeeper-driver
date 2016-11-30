@@ -3,6 +3,7 @@ package org.sagesource.zookeeperdriver.client.manager;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.sagesource.zookeeperdriver.client.property.ClientConnectProperty;
 import org.sagesource.zookeeperdriver.client.wrapper.ClientWrapper;
 
@@ -17,11 +18,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * </pre>
  */
 public class ClientManager {
-	private static Object LOCK_OBJECT = new Object();
+	private static Object                                   LOCK_OBJECT = new Object();
 	/**
 	 * ZK客户端池
 	 */
-	private static ConcurrentHashMap<String, ClientWrapper> clientPool = new ConcurrentHashMap<>();
+	private static ConcurrentHashMap<String, ClientWrapper> clientPool  = new ConcurrentHashMap<>();
 
 	/**
 	 * 根据client key获取zk客户端,如果不存在,抛出异常
@@ -38,13 +39,15 @@ public class ClientManager {
 
 	/**
 	 * 根据client key获取zk客户端 并判断不存在的时候是否创建
+	 *
 	 * @param clientKey
 	 * @param isCreate
 	 * @return
 	 */
-	public static ClientWrapper getZkClient(String clientKey, boolean isCreate) {
+	public static ClientWrapper getZkClient(String clientKey, String connectionString, boolean isCreate) {
 		ClientConnectProperty clientConnectProperty = new ClientConnectProperty();
 		clientConnectProperty.setClientKey(clientKey);
+		clientConnectProperty.setConnectionString(connectionString);
 
 		return getZkClient(clientConnectProperty, isCreate);
 	}
@@ -74,7 +77,23 @@ public class ClientManager {
 		return null;
 	}
 
+	/**
+	 * 关闭连接
+	 *
+	 * @param client
+	 */
+	public static synchronized void closeZkClient(ClientWrapper client) {
+		if (client != null) {
+			CuratorFramework realClient = client.getCuratorFramework();
+			if (realClient != null && CuratorFrameworkState.STARTED.equals(realClient.getState())) {
+				realClient.close();
+				clientPool.remove(client.getClientKey());
+			}
+		}
+	}
+
 	//........................................................................................//
+
 	/**
 	 * 创建ZK客户端
 	 *
@@ -91,6 +110,8 @@ public class ClientManager {
 				.connectionTimeoutMs(clientConnectProperty.getConnectionTimeoutMs())
 				.sessionTimeoutMs(clientConnectProperty.getSessionTimeoutMs())
 				.build();
+
+		client.start();
 
 		String clientKey = clientConnectProperty.getClientKey();
 		if (StringUtils.isEmpty(clientKey)) {
