@@ -8,9 +8,8 @@ dependencies {
             libraries.'mysql',
             libraries.'mybatis',
             libraries.'mybatis-spring',
-            libraries.'zkCurator',
 
             project(':zookeeper-driver-service-api'),
-            project(':zookeeper-driver-common'),
+            project(':zookeeper-driver-client'),
     )
 }

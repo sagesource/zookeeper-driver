@@ -1,0 +1,12 @@
+// jar包的名字
+archivesBaseName = 'zookeeper-driver-client'
+
+dependencies {
+    compile(
+            libraries.'logback',
+            libraries.'zkCurator',
+
+            project(':zookeeper-driver-common'),
+    )
+}
+
