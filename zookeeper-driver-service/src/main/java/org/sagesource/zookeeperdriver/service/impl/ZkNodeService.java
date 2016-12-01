@@ -1,6 +1,6 @@
 package org.sagesource.zookeeperdriver.service.impl;
 
-import org.apache.commons.lang3.ObjectUtils;
+import com.google.common.base.Preconditions;
 import org.sagesource.zookeeperdriver.client.dto.ZkData;
 import org.sagesource.zookeeperdriver.client.dto.ZkNode;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * <p></p>
@@ -30,6 +29,8 @@ public class ZkNodeService implements IZkNodeService {
 
 	@Override
 	public boolean checkNodeExist(ZkClientWrapper client, String path) throws Exception {
+		Preconditions.checkNotNull(client, "client is null");
+
 		LOGGER.info("判断节点是否存在 client_key=[{}],parentPath=[{}]", client.getClientKey(), path);
 		try {
 			return client.exist(path);
@@ -41,8 +42,9 @@ public class ZkNodeService implements IZkNodeService {
 
 	@Override
 	public List<ZkNodeDto> findChildrenNode(ZkClientWrapper client, String parentPath) throws Exception {
-		LOGGER.info("获得节点的子节点列表 client_key=[{}],parentPath=[{}]", client.getClientKey(), parentPath);
+		Preconditions.checkNotNull(client, "client is null");
 
+		LOGGER.info("获得节点的子节点列表 client_key=[{}],parentPath=[{}]", client.getClientKey(), parentPath);
 		List<ZkNodeDto> result = new ArrayList<>();
 		try {
 			List<ZkNode> nodeList = client.getChildren(parentPath);
@@ -62,8 +64,9 @@ public class ZkNodeService implements IZkNodeService {
 
 	@Override
 	public ZkDataDto readNodeData(ZkClientWrapper client, String path) throws Exception {
-		LOGGER.info("获取节点的数据 client_key=[{}],path=[{}]", client.getClientKey(), path);
+		Preconditions.checkNotNull(client, "client is null");
 
+		LOGGER.info("获取节点的数据 client_key=[{}],path=[{}]", client.getClientKey(), path);
 		try {
 			ZkData    data = client.readData(path);
 			ZkDataDto dto  = new ZkDataDto();
