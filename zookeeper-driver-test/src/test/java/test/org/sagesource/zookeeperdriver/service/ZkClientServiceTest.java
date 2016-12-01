@@ -3,7 +3,7 @@ package test.org.sagesource.zookeeperdriver.service;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
-import org.sagesource.zookeeperdriver.service.intf.IZkService;
+import org.sagesource.zookeeperdriver.service.intf.IZkClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.org.sagesource.zookeeperdriver.base.BaseTest;
 
@@ -15,14 +15,16 @@ import test.org.sagesource.zookeeperdriver.base.BaseTest;
  *     email       job.xueqi@gmail.com
  * </pre>
  */
-public class ZkServiceTest extends BaseTest{
+public class ZkClientServiceTest extends BaseTest{
 
 	@Autowired
-	private IZkService zkService;
+	private IZkClientService zkClientService;
 
 	@Test
 	public void lineToZookeeperTest() {
-		ZkClientWrapper client = zkService.lineToZookeeper(1);
+		ZkClientWrapper client = zkClientService.lineToZookeeper(1);
 		Assert.assertNotNull(client);
+
+		zkClientService.closeZkClient(client);
 	}
 }

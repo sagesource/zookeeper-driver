@@ -34,7 +34,7 @@ public class ZkClientConnectProperty {
 	/**
 	 * Session超时时间
 	 */
-	private int         sessionTimeoutMs    = 1000;
+	private int         sessionTimeoutMs    = 10000;
 
 	public String getClientKey() {
 		return clientKey;

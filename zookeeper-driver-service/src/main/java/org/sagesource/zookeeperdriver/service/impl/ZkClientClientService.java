@@ -6,7 +6,7 @@ import org.sagesource.zookeeperdriver.client.property.ZkClientConnectProperty;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
 import org.sagesource.zookeeperdriver.entity.ZkServerInfo;
 import org.sagesource.zookeeperdriver.mapper.ZkServerInfoMapper;
-import org.sagesource.zookeeperdriver.service.intf.IZkService;
+import org.sagesource.zookeeperdriver.service.intf.IZkClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ import org.springframework.stereotype.Service;
  * </pre>
  */
 @Service
-public class ZkService implements IZkService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ZkService.class);
+public class ZkClientClientService implements IZkClientService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ZkClientClientService.class);
 
 	@Autowired
 	private ZkServerInfoMapper zkServerInfoMapper;
@@ -50,10 +50,23 @@ public class ZkService implements IZkService {
 			zkClientConnectProperty.setSessionTimeoutMs(sessionTimeoutMs);
 
 			ZkClientWrapper client = ZkClientManager.getZkClient(zkClientConnectProperty);
-			LOGGER.info("创建zk连接客户端成功");
+			LOGGER.info("创建zk连接客户端成功 clientKey=[{}]", client.getClientKey());
 			return client;
 		} catch (Exception e) {
-			LOGGER.error("创建zk连接客户端失败!", e);
+			LOGGER.error("创建zk连接客户端失败! serverInfoId=[{}]", serverInfoId, e);
+			throw e;
+		}
+	}
+
+	@Override
+	public void closeZkClient(ZkClientWrapper zkClient) {
+		try {
+			LOGGER.info("关闭zk连接 clientKey=[{}]", zkClient.getClientKey());
+			ZkClientManager.closeZkClient(zkClient);
+
+			LOGGER.info("关闭zk连接成功 clientKey=[{}]", zkClient.getClientKey());
+		} catch (Exception e) {
+			LOGGER.error("关闭zk连接客户端失败! serverInfoId=[{}]", zkClient.getClientKey(), e);
 			throw e;
 		}
 	}
