@@ -1,0 +1,11 @@
+// jar包的名字
+archivesBaseName = 'zookeeper-driver-dal'
+
+dependencies {
+    compile(
+            libraries.'spring-jdbc',
+            libraries.'mysql',
+            libraries.'mybatis',
+            libraries.'mybatis-spring',
+    )
+}

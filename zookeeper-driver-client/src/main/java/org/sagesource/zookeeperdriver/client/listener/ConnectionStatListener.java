@@ -1,4 +1,4 @@
-package org.sagesource.zookeeperdriver.client.manager;
+package org.sagesource.zookeeperdriver.client.listener;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.state.ConnectionState;

@@ -3,14 +3,7 @@ archivesBaseName = 'zookeeper-driver-service'
 
 dependencies {
     compile(
-            libraries.'aspectj',
-            libraries.'spring-context-support',
-            libraries.'spring-jdbc',
-            libraries.'mysql',
-            libraries.'mybatis',
-            libraries.'mybatis-spring',
-
-            project(':zookeeper-driver-service-api'),
             project(':zookeeper-driver-client'),
+            project(':zookeeper-driver-dal')
     )
 }

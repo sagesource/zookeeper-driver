@@ -7,8 +7,7 @@ dependencies {
     }
     compile(
             libraries.'logback',
-            libraries.'zookeeper',
-            project(':zookeeper-driver-common'),
+            libraries.'zookeeper'
     )
 }
 

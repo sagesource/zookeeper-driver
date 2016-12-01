@@ -175,8 +175,8 @@ task mybatisGenerate {
         ant.properties['sqlMapperPackage'] = this.sqlMapperPackage
 
         //配置生成的类输出根路径
-        def src_main_java = this.name + "-service/src/main/java"
-        def src_main_resource = this.name + "-service/src/main/resources"
+        def src_main_java = this.name + "-dal/src/main/java"
+        def src_main_resource = this.name + "-dal/src/main/resources"
 
         ant.properties['src_main_java'] = src_main_java
         ant.properties['src_main_resources'] = src_main_resource
