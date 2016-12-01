@@ -27,6 +27,10 @@ public class ClientWrapper {
 	 * 客户端对象
 	 */
 	private CuratorFramework curatorFramework;
+	/**
+	 * 连接session_id
+	 */
+	private long             sessionId;
 
 	//..............操作方法..................//
 
@@ -49,6 +53,7 @@ public class ClientWrapper {
 	 *
 	 * @param path 节点
 	 * @return
+	 *
 	 * @throws Exception
 	 */
 	public List<ZNodeDto> getChildren(String path) throws Exception {
@@ -89,6 +94,7 @@ public class ClientWrapper {
 	 *
 	 * @param path 节点
 	 * @return
+	 *
 	 * @throws Exception
 	 */
 	public ZkDataDto readData(String path) throws Exception {
@@ -174,5 +180,14 @@ public class ClientWrapper {
 
 	public void setCuratorFramework(CuratorFramework curatorFramework) {
 		this.curatorFramework = curatorFramework;
+	}
+
+	public long getSessionId() {
+		try {
+			sessionId = curatorFramework.getZookeeperClient().getZooKeeper().getSessionId();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return this.sessionId;
 	}
 }

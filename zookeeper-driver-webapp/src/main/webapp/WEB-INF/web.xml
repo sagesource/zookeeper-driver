@@ -13,7 +13,7 @@
     <!-- 在上下文中设置profile的默认值 指定环境使用参数:-Dspring.profiles.active="integrationtest"-->
     <context-param>
         <param-name>spring.profiles.default</param-name>
-        <param-value>development</param-value>
+        <param-value>production</param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

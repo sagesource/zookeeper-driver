@@ -1,5 +1,6 @@
 //依赖管理
 ext.versions = [
+        aspectjVersion      : '1.5.3',
         springVersion       : '4.3.3.RELEASE',
         servletVersion      : '3.1.0',
         junitVersion        : '4.12',
@@ -17,6 +18,9 @@ ext.versions = [
 ext.libraries = [
         //Junit
         "junit"                 : "junit:junit:${versions.junitVersion}",
+
+        //Aspectj
+        "aspectj"               : "aspectj:aspectjweaver:${versions.aspectjVersion}",
 
         //Spring Framework
         "spring-test"           : "org.springframework:spring-test:${versions.springVersion}",

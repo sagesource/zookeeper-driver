@@ -29,33 +29,24 @@ public class ClientManagerTest {
 	}
 
 	@Test
-	public void getZkClientByKeyTest() {
-		client = ClientManager.getZkClient("test");
-		System.out.println("======" + client + "======");
-	}
-
-	@Test
 	public void getZkClientByOptionalTest() {
 		ClientConnectProperty clientConnectProperty = new ClientConnectProperty();
 		clientConnectProperty.setConnectionString(connectionString);
 
-		client = ClientManager.getZkClient(clientConnectProperty, true);
+		client = ClientManager.getZkClient(clientConnectProperty);
 		System.out.println("client===" + ReflectionToStringBuilder.toString(client));
-
-		ClientWrapper queryClient = ClientManager.getZkClient(client.getClientKey());
-		System.out.println("query===" + ReflectionToStringBuilder.toString(queryClient));
 	}
 
 	@Test
 	public void wrapperExist() throws Exception {
-		client = ClientManager.getZkClient("test", connectionString, true);
+		client = ClientManager.getZkClient("test", connectionString);
 		boolean result = client.exist("/test");
-		System.out.println("====" + result + "====");
+		System.out.println("====" + result + "====" + client.getSessionId());
 	}
 
 	@Test
 	public void wrapperGetChildrenTest() throws Exception {
-		client = ClientManager.getZkClient("test", connectionString, true);
+		client = ClientManager.getZkClient("test", connectionString);
 
 		List<ZNodeDto> list = client.getChildren("/sage");
 
@@ -66,26 +57,26 @@ public class ClientManagerTest {
 
 	@Test
 	public void wrapperReadData() throws Exception {
-		client = ClientManager.getZkClient("test", connectionString, true);
+		client = ClientManager.getZkClient("test", connectionString);
 		ZkDataDto data = client.readData("/sage/wrapper");
 		System.out.println("data===" + ReflectionToStringBuilder.toString(data));
 	}
 
 	@Test
 	public void wrapperCreate() throws Exception {
-		client = ClientManager.getZkClient("test", connectionString, true);
+		client = ClientManager.getZkClient("test", connectionString);
 		client.create("/sage/wrapper", "sage-wrapper".getBytes());
 	}
 
 	@Test
 	public void wrapperSetNodeData() throws Exception {
-		client = ClientManager.getZkClient("test", connectionString, true);
+		client = ClientManager.getZkClient("test", connectionString);
 		client.editData("/sage/wrapper", "sage-111".getBytes(), 1);
 	}
 
 	@Test
 	public void wrapperDelete() throws Exception {
-		client = ClientManager.getZkClient("test", connectionString, true);
+		client = ClientManager.getZkClient("test", connectionString);
 		client.delete("/sage", true);
 	}
 }

@@ -34,7 +34,7 @@ public class ClientConnectProperty {
 	/**
 	 * Session超时时间
 	 */
-	private int         sessionTimeoutMs    = 100000;
+	private int         sessionTimeoutMs    = 1000;
 
 	public String getClientKey() {
 		return clientKey;
