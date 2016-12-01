@@ -1,0 +1,8 @@
+// jar包的名字
+archivesBaseName = 'zookeeper-driver-service'
+
+dependencies {
+    compile(
+            project(':zookeeper-driver-webapp')
+    )
+}

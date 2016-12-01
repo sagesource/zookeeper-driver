@@ -3,4 +3,5 @@ include 'zookeeper-driver-webapp'
 include 'zookeeper-driver-service'
 include 'zookeeper-driver-client'
 include 'zookeeper-driver-dal'
+include 'zookeeper-driver-test'
 

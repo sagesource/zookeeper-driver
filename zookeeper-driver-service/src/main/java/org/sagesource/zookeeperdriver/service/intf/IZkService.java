@@ -13,10 +13,10 @@ import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
 public interface IZkService {
 
 	/**
-	 * 根据clientKey 连接到zk服务
+	 * 根据serverId 连接到zk服务
 	 *
-	 * @param clientKey
+	 * @param serverInfoId
 	 */
-	public ZkClientWrapper lineToZookeeper(String clientKey);
+	public ZkClientWrapper lineToZookeeper(int serverInfoId);
 
 }

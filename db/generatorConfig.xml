@@ -48,6 +48,8 @@
         <table tableName="zk_server_info">
             <!-- 指定是否只生成domain类，如果设置为true，只生成domain类，如果还配置了sqlMapGenerator，那么在mapper XML文件中，只生成resultMap元素 -->
             <property name="modelOnly" value="false"/>
+            <!-- 指定是否生成动态修改语句（只修改对象中不为空的属性） -->
+            <property name="enableUpdateByExample" value="true"/>
 
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
