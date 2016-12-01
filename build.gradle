@@ -128,6 +128,9 @@ subprojects { subproj ->
 
         //通用依赖
         compile(
+                libraries.'logback',
+                libraries.'spring-context-support',
+                libraries.'commons-lang3'
         )
         //通用测试依赖
         testCompile(

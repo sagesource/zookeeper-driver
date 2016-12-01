@@ -11,7 +11,7 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
  *     email       job.xueqi@gmail.com
  * </pre>
  */
-public class ClientConnectProperty {
+public class ZkClientConnectProperty {
 	/**
 	 * 客户端编号(可以指定也可手工传入)
 	 */

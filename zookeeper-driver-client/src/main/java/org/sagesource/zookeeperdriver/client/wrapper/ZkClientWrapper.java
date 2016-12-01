@@ -18,7 +18,7 @@ import java.util.List;
  *     email       job.xueqi@gmail.com
  * </pre>
  */
-public class ClientWrapper {
+public class ZkClientWrapper {
 	/**
 	 * 客户端编号(可以指定也可手工传入)
 	 */

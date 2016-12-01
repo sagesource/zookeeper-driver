@@ -26,14 +26,12 @@ war {
 dependencies {
     // 因为此项目为 web 项目，所以需要将下述 jar 包设置为 provided
     providedCompile(
-            libraries.'servlet',
-            //libraries.'jsp-api'
+            libraries.'servlet'
     )
 
     compile(
             libraries.'aspectj',
             libraries.'spring-webmvc',
-            libraries.'spring-context-support',
             libraries.'freemarker',
             project(':zookeeper-driver-service')
     )

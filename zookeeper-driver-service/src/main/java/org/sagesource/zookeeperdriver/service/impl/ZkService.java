@@ -1,5 +1,6 @@
 package org.sagesource.zookeeperdriver.service.impl;
 
+import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
 import org.sagesource.zookeeperdriver.service.intf.IZkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,7 @@ public class ZkService implements IZkService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ZkService.class);
 
 	@Override
-	public void lineToZookeeper(String clientKey) {
-
+	public ZkClientWrapper lineToZookeeper(String clientKey) {
+		return null;
 	}
 }

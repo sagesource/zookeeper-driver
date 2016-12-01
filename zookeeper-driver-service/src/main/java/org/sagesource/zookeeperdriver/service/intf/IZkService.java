@@ -1,6 +1,6 @@
 package org.sagesource.zookeeperdriver.service.intf;
 
-import org.sagesource.zookeeperdriver.client.wrapper.ClientWrapper;
+import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
 
 /**
  * <p>ZK操作Service</p>
@@ -17,6 +17,6 @@ public interface IZkService {
 	 *
 	 * @param clientKey
 	 */
-	public ClientWrapper lineToZookeeper(String clientKey);
+	public ZkClientWrapper lineToZookeeper(String clientKey);
 
 }

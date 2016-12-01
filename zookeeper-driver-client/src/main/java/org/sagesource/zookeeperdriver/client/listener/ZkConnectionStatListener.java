@@ -13,7 +13,7 @@ import org.apache.zookeeper.CreateMode;
  *     email       job.xueqi@gmail.com
  * </pre>
  */
-public class ConnectionStatListener implements ConnectionStateListener {
+public class ZkConnectionStatListener implements ConnectionStateListener {
 	@Override
 	public void stateChanged(CuratorFramework client, ConnectionState newState) {
 		if (newState == ConnectionState.LOST) {
