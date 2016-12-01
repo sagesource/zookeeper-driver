@@ -17,7 +17,7 @@
     <aop:aspectj-autoproxy/>
 
     <!-- 其他配置文件在这里引用 -->
-
+    <import resource="applicationContext-datasource.xml"/>
 
 
     <!-- 根据环境读取配置文件 -->

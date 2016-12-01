@@ -17,7 +17,7 @@
 
 
         <commentGenerator>
-            <property name="suppressAllComments" value="false"/>
+            <property name="suppressAllComments" value="true"/>
         </commentGenerator>
 
         <jdbcConnection driverClass="${driverClass}"
@@ -45,7 +45,7 @@
         <sqlMapGenerator targetPackage="${sqlMapperPackage}" targetProject="${src_main_resources}"/>
         <javaClientGenerator targetPackage="${mapperPackage}" targetProject="${src_main_java}" type="XMLMAPPER"/>
         <!-- sql占位符，表示所有的表 -->
-        <table tableName="reg_info">
+        <table tableName="zk_server_info">
             <!-- 指定是否只生成domain类，如果设置为true，只生成domain类，如果还配置了sqlMapGenerator，那么在mapper XML文件中，只生成resultMap元素 -->
             <property name="modelOnly" value="false"/>
 

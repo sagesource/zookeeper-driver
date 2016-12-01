@@ -5,6 +5,7 @@ dependencies {
     compile(
             libraries.'spring-jdbc',
             libraries.'mysql',
+            libraries.'druid',
             libraries.'mybatis',
             libraries.'mybatis-spring',
     )
