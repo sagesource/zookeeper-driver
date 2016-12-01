@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 主配置文件 所有的配置都要在这里引用 -->
+
+    <context:annotation-config/>
+
+    <context:component-scan base-package="org.sagesource.zookeeperdriver">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <aop:aspectj-autoproxy/>
+
+    <!-- 其他配置文件在这里引用 -->
+
+
+
+    <!-- 根据环境读取配置文件 -->
+    <beans profile="development">
+        <context:property-placeholder
+                location="classpath:application.properties,classpath:*-development.properties"/>
+    </beans>
+    <beans profile="integrationtest">
+        <context:property-placeholder
+                location="classpath:application.properties,classpath:*-integrationtest.properties"/>
+    </beans>
+    <beans profile="production">
+        <context:property-placeholder
+                location="classpath:application.properties,classpath:*-production.properties"/>
+    </beans>
+</beans>

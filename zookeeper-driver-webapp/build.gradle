@@ -31,6 +31,9 @@ dependencies {
     )
 
     compile(
+            libraries.'spring-webmvc',
+            libraries.'spring-context-support',
+            libraries.'freemarker',
             project(':zookeeper-driver-service-api'),
             project(':zookeeper-driver-common')
     )

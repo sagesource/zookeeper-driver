@@ -4,6 +4,7 @@ archivesBaseName = 'zookeeper-driver-common'
 dependencies {
     compile(
             libraries.'servlet',
-            libraries.'commons-lang3'
+            libraries.'commons-lang3',
+            libraries.'fastjson'
     )
 }
