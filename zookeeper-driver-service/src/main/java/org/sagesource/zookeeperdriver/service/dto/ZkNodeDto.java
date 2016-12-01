@@ -1,16 +1,16 @@
-package org.sagesource.zookeeperdriver.client.dto;
+package org.sagesource.zookeeperdriver.service.dto;
 
 import org.apache.zookeeper.data.Stat;
 
 /**
- * <p>ZK 节点对象</p>
+ * <p>ZKnode 节点DTO</p>
  * <pre>
  *     author      Sage XueQi
- *     date        2016/11/20
+ *     date        2016/12/1
  *     email       job.xueqi@gmail.com
  * </pre>
  */
-public class ZNodeDto {
+public class ZkNodeDto {
 	/**
 	 * 父节点信息
 	 */

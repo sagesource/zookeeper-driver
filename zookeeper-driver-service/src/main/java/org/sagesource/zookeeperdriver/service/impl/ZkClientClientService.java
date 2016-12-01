@@ -5,12 +5,14 @@ import org.sagesource.zookeeperdriver.client.manager.ZkClientManager;
 import org.sagesource.zookeeperdriver.client.property.ZkClientConnectProperty;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
 import org.sagesource.zookeeperdriver.entity.ZkServerInfo;
+import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
 import org.sagesource.zookeeperdriver.mapper.ZkServerInfoMapper;
 import org.sagesource.zookeeperdriver.service.intf.IZkClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p></p>
@@ -28,12 +30,13 @@ public class ZkClientClientService implements IZkClientService {
 	private ZkServerInfoMapper zkServerInfoMapper;
 
 	@Override
-	public ZkClientWrapper lineToZookeeper(int serverInfoId) {
+	@Transactional(readOnly = true)
+	public ZkClientWrapper lineToZookeeper(int serverInfoId) throws Exception {
 		try {
 			LOGGER.info("查询zk服务配置 zk_server_info_id=[{}]", serverInfoId);
 
 			ZkServerInfo zkServerInfo = zkServerInfoMapper.selectByPrimaryKey(serverInfoId);
-			if (zkServerInfo == null) throw new NullPointerException("ZK服务信息不存在");
+			if (zkServerInfo == null) throw new ZkDriverBusinessException("ZK服务信息不存在");
 
 			String connectionString    = zkServerInfo.getServers();
 			int    retrySleepTime      = zkServerInfo.getRetrySleepTime();
@@ -50,8 +53,10 @@ public class ZkClientClientService implements IZkClientService {
 			zkClientConnectProperty.setSessionTimeoutMs(sessionTimeoutMs);
 
 			ZkClientWrapper client = ZkClientManager.getZkClient(zkClientConnectProperty);
-			LOGGER.info("创建zk连接客户端成功 clientKey=[{}]", client.getClientKey());
+			LOGGER.info("创建zk连接客户端成功 client_key=[{}]", client.getClientKey());
 			return client;
+		} catch (ZkDriverBusinessException e) {
+			throw e;
 		} catch (Exception e) {
 			LOGGER.error("创建zk连接客户端失败! serverInfoId=[{}]", serverInfoId, e);
 			throw e;
@@ -61,12 +66,12 @@ public class ZkClientClientService implements IZkClientService {
 	@Override
 	public void closeZkClient(ZkClientWrapper zkClient) {
 		try {
-			LOGGER.info("关闭zk连接 clientKey=[{}]", zkClient.getClientKey());
+			LOGGER.info("关闭zk连接 client_key=[{}]", zkClient.getClientKey());
 			ZkClientManager.closeZkClient(zkClient);
 
-			LOGGER.info("关闭zk连接成功 clientKey=[{}]", zkClient.getClientKey());
+			LOGGER.info("关闭zk连接成功 client_key=[{}]", zkClient.getClientKey());
 		} catch (Exception e) {
-			LOGGER.error("关闭zk连接客户端失败! serverInfoId=[{}]", zkClient.getClientKey(), e);
+			LOGGER.error("关闭zk连接客户端失败! client_key=[{}]", zkClient.getClientKey(), e);
 			throw e;
 		}
 	}

@@ -2,10 +2,11 @@ package org.sagesource.zookeeperdriver.client.wrapper;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
-import org.sagesource.zookeeperdriver.client.dto.ZNodeDto;
-import org.sagesource.zookeeperdriver.client.dto.ZkDataDto;
+import org.sagesource.zookeeperdriver.client.dto.ZkNode;
+import org.sagesource.zookeeperdriver.client.dto.ZkData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +23,19 @@ public class ZkClientWrapper {
 	/**
 	 * 客户端编号(可以指定也可手工传入)
 	 */
-	private String           clientKey;
+	private String                clientKey;
 	/**
 	 * 客户端对象
 	 */
-	private CuratorFramework curatorFramework;
+	private CuratorFramework      curatorFramework;
 	/**
 	 * 连接session_id
 	 */
-	private long             sessionId;
+	private long                  sessionId;
+	/**
+	 * 连接状态
+	 */
+	private CuratorFrameworkState state;
 
 	//..............操作方法..................//
 
@@ -56,15 +61,15 @@ public class ZkClientWrapper {
 	 *
 	 * @throws Exception
 	 */
-	public List<ZNodeDto> getChildren(String path) throws Exception {
+	public List<ZkNode> getChildren(String path) throws Exception {
 		// 构建path
 		path = builtPath(path);
 		// 当前节点状态
 		Stat         stat             = new Stat();
 		List<String> childrenNameList = curatorFramework.getChildren().storingStatIn(stat).forPath(path);
 
-		List<ZNodeDto> childrenList = new ArrayList<>();
-		final String   finalPath    = path;
+		List<ZkNode> childrenList = new ArrayList<>();
+		final String finalPath    = path;
 		// 遍历子节点 判断子节点是否为根节点
 		childrenNameList.forEach((childrenName) -> {
 			try {
@@ -72,10 +77,10 @@ public class ZkClientWrapper {
 				boolean hasChildren = false;
 
 				// 获取子节点的子节点信息
-				List<String> tmpChildren = curatorFramework.getChildren().forPath(finalPath + "/" + childrenName);
+				List<String> tmpChildren = curatorFramework.getChildren().forPath(joinPath(finalPath, childrenName));
 				if (tmpChildren != null && tmpChildren.size() > 0) hasChildren = true;
 
-				ZNodeDto znode = new ZNodeDto();
+				ZkNode znode = new ZkNode();
 				znode.setStat(stat);
 				znode.setHasChildren(hasChildren);
 				znode.setName(childrenName);
@@ -97,17 +102,17 @@ public class ZkClientWrapper {
 	 *
 	 * @throws Exception
 	 */
-	public ZkDataDto readData(String path) throws Exception {
+	public ZkData readData(String path) throws Exception {
 		path = builtPath(path);
 		Stat stat = new Stat();
 
 		byte[] data = curatorFramework.getData().storingStatIn(stat).forPath(path);
 
-		ZkDataDto zkDataDto = new ZkDataDto();
-		zkDataDto.setData(data);
-		zkDataDto.setStat(stat);
+		ZkData zkData = new ZkData();
+		zkData.setData(data);
+		zkData.setStat(stat);
 
-		return zkDataDto;
+		return zkData;
 	}
 
 	/**
@@ -165,6 +170,18 @@ public class ZkClientWrapper {
 		return path;
 	}
 
+	/**
+	 * 连接节点
+	 *
+	 * @param path
+	 * @param children
+	 * @return
+	 */
+	private String joinPath(String path, String children) {
+		if ("/".equals(path)) return path + children;
+		return path + "/" + children;
+	}
+
 	//.......................................//
 	public String getClientKey() {
 		return clientKey;
@@ -189,5 +206,9 @@ public class ZkClientWrapper {
 			e.printStackTrace();
 		}
 		return this.sessionId;
+	}
+
+	public CuratorFrameworkState getState() {
+		return curatorFramework.getState();
 	}
 }

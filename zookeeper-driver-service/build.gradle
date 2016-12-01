@@ -3,6 +3,7 @@ archivesBaseName = 'zookeeper-driver-service'
 
 dependencies {
     compile(
+            project(':zookeeper-driver-helper'),
             project(':zookeeper-driver-client'),
             project(':zookeeper-driver-dal')
     )

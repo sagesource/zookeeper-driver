@@ -21,7 +21,7 @@ public class ZkClientServiceTest extends BaseTest{
 	private IZkClientService zkClientService;
 
 	@Test
-	public void lineToZookeeperTest() {
+	public void lineToZookeeperTest() throws Exception {
 		ZkClientWrapper client = zkClientService.lineToZookeeper(1);
 		Assert.assertNotNull(client);
 

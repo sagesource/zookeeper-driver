@@ -3,8 +3,8 @@ package test.org.sagesource.zookeeperdriver.client.manager;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.junit.After;
 import org.junit.Test;
-import org.sagesource.zookeeperdriver.client.dto.ZNodeDto;
-import org.sagesource.zookeeperdriver.client.dto.ZkDataDto;
+import org.sagesource.zookeeperdriver.client.dto.ZkNode;
+import org.sagesource.zookeeperdriver.client.dto.ZkData;
 import org.sagesource.zookeeperdriver.client.manager.ZkClientManager;
 import org.sagesource.zookeeperdriver.client.property.ZkClientConnectProperty;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
@@ -48,7 +48,7 @@ public class ZkClientManagerTest {
 	public void wrapperGetChildrenTest() throws Exception {
 		client = ZkClientManager.getZkClient("test", connectionString);
 
-		List<ZNodeDto> list = client.getChildren("/sage");
+		List<ZkNode> list = client.getChildren("/sage");
 
 		list.forEach((dto) -> {
 			System.out.println(ReflectionToStringBuilder.toString(dto));
@@ -58,7 +58,7 @@ public class ZkClientManagerTest {
 	@Test
 	public void wrapperReadData() throws Exception {
 		client = ZkClientManager.getZkClient("test", connectionString);
-		ZkDataDto data = client.readData("/sage/wrapper");
+		ZkData data = client.readData("/sage/wrapper");
 		System.out.println("data===" + ReflectionToStringBuilder.toString(data));
 	}
 
