@@ -23,8 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
  * </pre>
  */
 @Service
-public class ZkClientClientService implements IZkClientService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ZkClientClientService.class);
+public class ZkClientService implements IZkClientService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ZkClientService.class);
 
 	@Autowired
 	private ZkServerInfoMapper zkServerInfoMapper;
