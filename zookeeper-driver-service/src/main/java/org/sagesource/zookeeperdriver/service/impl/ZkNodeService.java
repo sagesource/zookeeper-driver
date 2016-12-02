@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.sagesource.zookeeperdriver.client.dto.ZkData;
 import org.sagesource.zookeeperdriver.client.dto.ZkNode;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
+import org.sagesource.zookeeperdriver.helper.Constants;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
 import org.sagesource.zookeeperdriver.service.dto.ZkDataDto;
 import org.sagesource.zookeeperdriver.service.dto.ZkNodeDto;
@@ -85,7 +86,18 @@ public class ZkNodeService implements IZkNodeService {
 	@Override
 	public void createNode(ZkClientWrapper client, String path, String data) throws Exception {
 		Preconditions.checkNotNull(client, "client is null");
-		if (StringUtils.isEmpty(path)) throw new ZkDriverBusinessException("");
+
+		LOGGER.info("创建节点 client_key=[{}],path=[{}],data=[{}]", client.getClientKey(), path, data);
+
+		try {
+			if (StringUtils.isEmpty(data)) throw new ZkDriverBusinessException("创建数据为空");
+			client.create(path, data.getBytes(Constants.CHARSET_UTF_8));
+		} catch (ZkDriverBusinessException e) {
+			throw e;
+		} catch (Exception e) {
+			LOGGER.error("创建节点失败 client_key=[{}],path=[{}],data=[{}]", client.getClientKey(), path, data, e);
+			throw e;
+		}
 	}
 
 

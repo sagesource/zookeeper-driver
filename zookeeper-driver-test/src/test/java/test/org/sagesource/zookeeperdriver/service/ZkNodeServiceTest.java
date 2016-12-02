@@ -49,7 +49,7 @@ public class ZkNodeServiceTest extends BaseTest {
 
 	@Test
 	public void findChildrenNodeTest() throws Exception {
-		List<ZkNodeDto> list = zkNodeService.findChildrenNode(client, "/");
+		List<ZkNodeDto> list = zkNodeService.findChildrenNode(client, "/xueqi");
 		list.forEach((dto) -> {
 			System.out.println(ReflectionToStringBuilder.toString(dto));
 		});
@@ -57,9 +57,14 @@ public class ZkNodeServiceTest extends BaseTest {
 
 	@Test
 	public void readNodeDataTest() throws Exception {
-		ZkDataDto data = zkNodeService.readNodeData(client, "/");
+		ZkDataDto data = zkNodeService.readNodeData(client, "/xueqi/unit");
 		Assert.assertNotNull(data);
 
 		System.out.println(ReflectionToStringBuilder.toString(data));
+	}
+
+	@Test
+	public void createNodeTest() throws Exception {
+		zkNodeService.createNode(client, "/xueqi/unit", "unit");
 	}
 }

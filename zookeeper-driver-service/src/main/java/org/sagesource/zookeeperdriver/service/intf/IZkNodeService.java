@@ -1,7 +1,6 @@
 package org.sagesource.zookeeperdriver.service.intf;
 
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
-import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
 import org.sagesource.zookeeperdriver.service.dto.ZkDataDto;
 import org.sagesource.zookeeperdriver.service.dto.ZkNodeDto;
 
