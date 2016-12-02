@@ -57,7 +57,7 @@ public class ZkNodeServiceTest extends BaseTest {
 
 	@Test
 	public void readNodeDataTest() throws Exception {
-		ZkDataDto data = zkNodeService.readNodeData(client, "/xueqi/unit");
+		ZkDataDto data = zkNodeService.readNodeData(client, "/xueqi");
 		Assert.assertNotNull(data);
 
 		System.out.println(ReflectionToStringBuilder.toString(data));
@@ -71,5 +71,10 @@ public class ZkNodeServiceTest extends BaseTest {
 	@Test
 	public void editNodeDataTest() throws Exception {
 		zkNodeService.editNodeData(client, "/xueqi/unit", "unit222");
+	}
+
+	@Test
+	public void deleteNodeTest() throws Exception {
+		zkNodeService.deleteNode(client, "/xueqi/unit");
 	}
 }

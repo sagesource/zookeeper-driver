@@ -2,6 +2,7 @@ package org.sagesource.zookeeperdriver.service.impl;
 
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.sagesource.zookeeperdriver.client.dto.ZkData;
 import org.sagesource.zookeeperdriver.client.dto.ZkNode;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
@@ -106,7 +107,6 @@ public class ZkNodeService implements IZkNodeService {
 		Preconditions.checkNotNull(client, "client is null");
 
 		LOGGER.info("更新节点数据 client_key=[{}],path=[{}],data=[{}]", client.getClientKey(), path, data);
-
 		try {
 			if (StringUtils.isEmpty(data)) throw new ZkDriverBusinessException("更新数据为空");
 
@@ -123,6 +123,23 @@ public class ZkNodeService implements IZkNodeService {
 			throw e;
 		}
 
+	}
+
+	@Override
+	public void deleteNode(ZkClientWrapper client, String path) throws Exception {
+		Preconditions.checkNotNull(client, "client is null");
+
+		LOGGER.info("删除节点 client_key=[{}],path=[{}]", client.getClientKey(), path);
+		try {
+			//查询旧节点的状态
+			ZkDataDto oldZnode = readNodeData(client, path);
+			LOGGER.info("删除节点 client_key=[{}],path=[{}],old_znode=[{}]", client.getClientKey(), path, ReflectionToStringBuilder.toString(oldZnode));
+
+			client.delete(path, true);
+		} catch (Exception e) {
+			LOGGER.error("删除节点失败 client_key=[{}],path=[{}]", client.getClientKey(), path);
+			throw e;
+		}
 	}
 
 

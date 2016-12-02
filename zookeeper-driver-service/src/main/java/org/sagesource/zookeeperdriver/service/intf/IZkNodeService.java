@@ -61,4 +61,13 @@ public interface IZkNodeService {
 	 * @throws Exception
 	 */
 	void editNodeData(ZkClientWrapper client, String path, String data) throws Exception;
+
+	/**
+	 * 删除节点
+	 *
+	 * @param client
+	 * @param path   删除节点
+	 * @throws Exception
+	 */
+	void deleteNode(ZkClientWrapper client, String path) throws Exception;
 }
