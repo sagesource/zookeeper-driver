@@ -1,6 +1,7 @@
 package org.sagesource.zookeeperdriver.service.intf;
 
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
+import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
 import org.sagesource.zookeeperdriver.service.dto.ZkDataDto;
 import org.sagesource.zookeeperdriver.service.dto.ZkNodeDto;
 
@@ -42,4 +43,13 @@ public interface IZkNodeService {
 	 * @return
 	 */
 	ZkDataDto readNodeData(ZkClientWrapper client, String path) throws Exception;
+
+	/**
+	 * 创建节点
+	 *
+	 * @param client
+	 * @param path   节点
+	 * @param data   数据
+	 */
+	void createNode(ZkClientWrapper client, String path, String data) throws Exception;
 }

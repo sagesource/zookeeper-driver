@@ -7,6 +7,8 @@ import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
 import org.sagesource.zookeeperdriver.client.dto.ZkNode;
 import org.sagesource.zookeeperdriver.client.dto.ZkData;
+import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
+import org.sagesource.zookeeperdriver.helper.node.NodePathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,9 +165,11 @@ public class ZkClientWrapper {
 	 * @param path
 	 * @return
 	 */
-	private String builtPath(String path) {
+	private String builtPath(String path) throws ZkDriverBusinessException {
 		path = StringUtils.isEmpty(path) ? "/" : path;
 		path = StringUtils.startsWith(path, "/") ? path : "/" + path;
+
+		if (!NodePathHelper.checkPath(path)) throw new ZkDriverBusinessException("node路径错误");
 
 		return path;
 	}

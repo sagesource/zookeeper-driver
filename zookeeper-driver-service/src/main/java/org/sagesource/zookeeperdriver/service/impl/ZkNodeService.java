@@ -1,9 +1,11 @@
 package org.sagesource.zookeeperdriver.service.impl;
 
 import com.google.common.base.Preconditions;
+import org.apache.commons.lang3.StringUtils;
 import org.sagesource.zookeeperdriver.client.dto.ZkData;
 import org.sagesource.zookeeperdriver.client.dto.ZkNode;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
+import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
 import org.sagesource.zookeeperdriver.service.dto.ZkDataDto;
 import org.sagesource.zookeeperdriver.service.dto.ZkNodeDto;
 import org.sagesource.zookeeperdriver.service.intf.IZkNodeService;
@@ -79,4 +81,12 @@ public class ZkNodeService implements IZkNodeService {
 			throw e;
 		}
 	}
+
+	@Override
+	public void createNode(ZkClientWrapper client, String path, String data) throws Exception {
+		Preconditions.checkNotNull(client, "client is null");
+		if (StringUtils.isEmpty(path)) throw new ZkDriverBusinessException("");
+	}
+
+
 }
