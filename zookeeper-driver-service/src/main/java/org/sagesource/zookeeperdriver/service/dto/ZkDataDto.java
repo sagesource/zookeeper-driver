@@ -19,6 +19,10 @@ public class ZkDataDto {
 	 * 节点状态
 	 */
 	private Stat   stat;
+	/**
+	 * 数据版本
+	 */
+	private int    version;
 
 	public String getData() {
 		return data;
@@ -34,5 +38,13 @@ public class ZkDataDto {
 
 	public void setStat(Stat stat) {
 		this.stat = stat;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 }

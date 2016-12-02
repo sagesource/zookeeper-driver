@@ -75,6 +75,7 @@ public class ZkNodeService implements IZkNodeService {
 			ZkDataDto dto  = new ZkDataDto();
 			dto.setData(new String(data.getData(), "UTF-8"));
 			dto.setStat(data.getStat());
+			dto.setVersion(data.getStat().getVersion());
 
 			return dto;
 		} catch (Exception e) {
@@ -98,6 +99,30 @@ public class ZkNodeService implements IZkNodeService {
 			LOGGER.error("创建节点失败 client_key=[{}],path=[{}],data=[{}]", client.getClientKey(), path, data, e);
 			throw e;
 		}
+	}
+
+	@Override
+	public void editNodeData(ZkClientWrapper client, String path, String data) throws Exception {
+		Preconditions.checkNotNull(client, "client is null");
+
+		LOGGER.info("更新节点数据 client_key=[{}],path=[{}],data=[{}]", client.getClientKey(), path, data);
+
+		try {
+			if (StringUtils.isEmpty(data)) throw new ZkDriverBusinessException("更新数据为空");
+
+			//1.查询旧的数据版本号
+			ZkDataDto oldDataDto = readNodeData(client, path);
+			int       oldVersion = oldDataDto.getVersion();
+
+			LOGGER.info("更新节点数据 client_key=[{}],old_data=[{}],old_version=[{}]", client.getClientKey(), oldDataDto.getData(), oldVersion);
+			client.editData(path, data.getBytes(Constants.CHARSET_UTF_8), oldVersion);
+		} catch (ZkDriverBusinessException e) {
+			throw e;
+		} catch (Exception e) {
+			LOGGER.error("更新节点数据失败 client_key=[{}],path=[{}],data=[{}]", client.getClientKey(), path, data, e);
+			throw e;
+		}
+
 	}
 
 

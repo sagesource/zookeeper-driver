@@ -67,4 +67,9 @@ public class ZkNodeServiceTest extends BaseTest {
 	public void createNodeTest() throws Exception {
 		zkNodeService.createNode(client, "/xueqi/unit", "unit");
 	}
+
+	@Test
+	public void editNodeDataTest() throws Exception {
+		zkNodeService.editNodeData(client, "/xueqi/unit", "unit222");
+	}
 }

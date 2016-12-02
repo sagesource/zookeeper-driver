@@ -51,4 +51,14 @@ public interface IZkNodeService {
 	 * @param data   数据
 	 */
 	void createNode(ZkClientWrapper client, String path, String data) throws Exception;
+
+	/**
+	 * 更新节点数据
+	 *
+	 * @param client
+	 * @param path   节点路径
+	 * @param data   更新数据
+	 * @throws Exception
+	 */
+	void editNodeData(ZkClientWrapper client, String path, String data) throws Exception;
 }
