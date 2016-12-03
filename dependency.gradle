@@ -4,6 +4,7 @@ ext.versions = [
         springVersion       : '4.3.3.RELEASE',
         servletVersion      : '3.1.0',
         junitVersion        : '4.12',
+        mockitoVersion      : '2.2.22',
         zkCuratorVersion    : '2.11.1',
         zkVersion           : '3.4.9',
         mybatisVersion      : '3.4.1',
@@ -19,6 +20,9 @@ ext.versions = [
 ext.libraries = [
         //Junit
         "junit"                 : "junit:junit:${versions.junitVersion}",
+
+        //Mockito
+        "mockito"               : "org.mockito:mockito-core:${versions.mockitoVersion}",
 
         //Aspectj
         "aspectj"               : "aspectj:aspectjweaver:${versions.aspectjVersion}",
