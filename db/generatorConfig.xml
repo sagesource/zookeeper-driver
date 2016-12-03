@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <context id="mysql" defaultModelType="flat" targetRuntime="MyBatis3Simple">
+    <context id="mysql" defaultModelType="flat" targetRuntime="MyBatis3">
         <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
              一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖
         -->
@@ -42,16 +42,12 @@
             <!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
+
         <sqlMapGenerator targetPackage="${sqlMapperPackage}" targetProject="${src_main_resources}"/>
         <javaClientGenerator targetPackage="${mapperPackage}" targetProject="${src_main_java}" type="XMLMAPPER"/>
-        <!-- sql占位符，表示所有的表 -->
-        <table tableName="zk_server_info">
-            <!-- 指定是否只生成domain类，如果设置为true，只生成domain类，如果还配置了sqlMapGenerator，那么在mapper XML文件中，只生成resultMap元素 -->
-            <property name="modelOnly" value="false"/>
-            <!-- 指定是否生成动态修改语句（只修改对象中不为空的属性） -->
-            <property name="enableUpdateByExample" value="true"/>
 
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        <!-- sql占位符，表示所有的表 -->
+        <table tableName="zk_server_info" enableSelectByExample="true">
         </table>
     </context>
 </generatorConfiguration>

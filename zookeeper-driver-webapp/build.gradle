@@ -33,6 +33,7 @@ dependencies {
             libraries.'aspectj',
             libraries.'spring-webmvc',
             libraries.'freemarker',
+            libraries.'fastjson',
             project(':zookeeper-driver-service')
     )
 }

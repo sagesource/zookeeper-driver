@@ -1,4 +1,4 @@
-package test.org.sagesource.zookeeperdriver.client.manager;
+package test.org.sagesource.zookeeperdriver.client;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.junit.After;

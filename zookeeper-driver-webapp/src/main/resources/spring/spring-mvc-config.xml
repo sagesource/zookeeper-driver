@@ -7,7 +7,7 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="org.sagesource.zookeeperdriver.controller">
+    <context:component-scan base-package="org.sagesource.zookeeperdriver.web.controller">
         <context:include-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation"

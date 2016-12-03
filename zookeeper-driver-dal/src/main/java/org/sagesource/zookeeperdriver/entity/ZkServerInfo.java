@@ -21,6 +21,10 @@ public class ZkServerInfo {
 
     private Date updateTime;
 
+    private String serverDesc;
+
+    private String clientKey;
+
     public Integer getId() {
         return id;
     }
@@ -91,5 +95,21 @@ public class ZkServerInfo {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getServerDesc() {
+        return serverDesc;
+    }
+
+    public void setServerDesc(String serverDesc) {
+        this.serverDesc = serverDesc == null ? null : serverDesc.trim();
+    }
+
+    public String getClientKey() {
+        return clientKey;
+    }
+
+    public void setClientKey(String clientKey) {
+        this.clientKey = clientKey == null ? null : clientKey.trim();
     }
 }

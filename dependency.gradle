@@ -12,6 +12,7 @@ ext.versions = [
         mysqlVersion        : '5.1.39',
         druidVersion        : '1.0.26',
         commonsLong3Version : '3.5',
+        commonsPool2Version : '2.4.2',
         logbackVersion      : '1.1.7',
         fastjsonVersion     : '1.2.18',
         freemarkerVersion   : '2.3.23'
@@ -52,6 +53,9 @@ ext.libraries = [
 
         //Apache Commons
         "commons-lang3"         : "org.apache.commons:commons-lang3:${versions.commonsLong3Version}",
+
+        //Apache Pool
+        "commons-pool2"         : "org.apache.commons:commons-pool2:${versions.commonsPool2Version}",
 
         //Logback
         "logback"               : "ch.qos.logback:logback-classic:${versions.logbackVersion}",

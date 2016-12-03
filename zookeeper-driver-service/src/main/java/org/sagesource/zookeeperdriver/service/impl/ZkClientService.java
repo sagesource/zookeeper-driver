@@ -38,6 +38,7 @@ public class ZkClientService implements IZkClientService {
 			ZkServerInfo zkServerInfo = zkServerInfoMapper.selectByPrimaryKey(serverInfoId);
 			if (zkServerInfo == null) throw new ZkDriverBusinessException("ZK服务信息不存在");
 
+			String clientKey           = zkServerInfo.getClientKey();
 			String connectionString    = zkServerInfo.getServers();
 			int    retrySleepTime      = zkServerInfo.getRetrySleepTime();
 			int    retryTimes          = zkServerInfo.getRetryTimes();
@@ -47,6 +48,7 @@ public class ZkClientService implements IZkClientService {
 					connectionString, retrySleepTime, retryTimes, connectionTimeoutMs, sessionTimeoutMs);
 
 			ZkClientConnectProperty zkClientConnectProperty = new ZkClientConnectProperty();
+			zkClientConnectProperty.setClientKey(clientKey);
 			zkClientConnectProperty.setConnectionString(connectionString);
 			zkClientConnectProperty.setRetryPolicy(new ExponentialBackoffRetry(retrySleepTime, retryTimes));
 			zkClientConnectProperty.setConnectionTimeoutMs(connectionTimeoutMs);
