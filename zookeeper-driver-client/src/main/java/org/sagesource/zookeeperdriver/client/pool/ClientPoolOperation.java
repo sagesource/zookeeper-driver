@@ -70,7 +70,7 @@ public class ClientPoolOperation {
 	 *
 	 * @param client
 	 */
-	public static synchronized void returnClientToPool(ZkClientWrapper client) throws ZkDriverClientPoolException {
+	public static void returnClientToPool(ZkClientWrapper client) throws ZkDriverClientPoolException {
 		Preconditions.checkNotNull(client, "client is null");
 
 		LOGGER.debug("return client to pool,client_key:[{}]", client.getClientKey());
@@ -78,5 +78,19 @@ public class ClientPoolOperation {
 		if (factoryMap.get(client.getClientKey()) == null) throw new ZkDriverClientPoolException("连接池不存在");
 
 		factoryMap.get(client.getClientKey()).returnObject(client);
+	}
+
+	/**
+	 * 销毁连接池
+	 */
+	public static synchronized void destory() {
+		factoryMap.entrySet().forEach((entry) -> destory(entry.getKey()));
+	}
+
+	public static synchronized void destory(String clientKey) {
+		if (factoryMap.get(clientKey) != null) {
+			factoryMap.get(clientKey).clear();
+			factoryMap.remove(clientKey);
+		}
 	}
 }
