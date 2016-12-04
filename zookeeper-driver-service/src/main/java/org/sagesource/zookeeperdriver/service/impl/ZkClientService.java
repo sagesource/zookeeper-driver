@@ -1,7 +1,9 @@
 package org.sagesource.zookeeperdriver.service.impl;
 
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.sagesource.zookeeperdriver.client.manager.ZkClientManager;
+import org.sagesource.zookeeperdriver.client.pool.ClientPoolOperation;
 import org.sagesource.zookeeperdriver.client.property.ZkClientConnectProperty;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
 import org.sagesource.zookeeperdriver.entity.ZkServerInfo;
@@ -29,6 +31,9 @@ public class ZkClientService implements IZkClientService {
 	@Autowired
 	private ZkServerInfoMapper zkServerInfoMapper;
 
+	@Autowired
+	private GenericObjectPoolConfig zkPoolConfig;
+
 	@Override
 	@Transactional(readOnly = true)
 	public ZkClientWrapper lineToZookeeper(int serverInfoId) throws Exception {
@@ -54,7 +59,8 @@ public class ZkClientService implements IZkClientService {
 			zkClientConnectProperty.setConnectionTimeoutMs(connectionTimeoutMs);
 			zkClientConnectProperty.setSessionTimeoutMs(sessionTimeoutMs);
 
-			ZkClientWrapper client = ZkClientManager.getZkClient(zkClientConnectProperty);
+			ClientPoolOperation.initClientPool(zkClientConnectProperty, zkPoolConfig);
+			ZkClientWrapper client = ClientPoolOperation.getClientFromPool(clientKey);
 			LOGGER.info("创建zk连接客户端成功 client_key=[{}]", client.getClientKey());
 			return client;
 		} catch (ZkDriverBusinessException e) {

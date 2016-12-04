@@ -87,7 +87,7 @@ public class ClientPoolOperation {
 		factoryMap.entrySet().forEach((entry) -> destory(entry.getKey()));
 	}
 
-	public static synchronized void destory(String clientKey) {
+	private static void destory(String clientKey) {
 		if (factoryMap.get(clientKey) != null) {
 			factoryMap.get(clientKey).clear();
 			factoryMap.remove(clientKey);
