@@ -19,6 +19,7 @@
     <!-- 其他配置文件在这里引用 -->
     <import resource="applicationContext-zookeeper.xml"/>
     <import resource="applicationContext-datasource.xml"/>
+    <import resource="applicationContext-mybatis.xml"/>
 
 
     <!-- 根据环境读取配置文件 -->

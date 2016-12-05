@@ -12,7 +12,11 @@ public class BaseResp<T> {
 	/**
 	 * 返回错误码
 	 */
-	private int         code;
+	private int    code;
+	/**
+	 * 返回描述
+	 */
+	private String message;
 	/**
 	 * 返回信息
 	 */
@@ -20,10 +24,27 @@ public class BaseResp<T> {
 	/**
 	 * 返回上下文
 	 */
-	private RespContext respcontext;
+	private RespContext respcontext = new RespContext();
 
 	public static class RespContext {
+		private long reqTime;
 		private long respTime;
+
+		public long getReqTime() {
+			return reqTime;
+		}
+
+		public void setReqTime(long reqTime) {
+			this.reqTime = reqTime;
+		}
+
+		public long getRespTime() {
+			return respTime;
+		}
+
+		public void setRespTime(long respTime) {
+			this.respTime = respTime;
+		}
 	}
 
 	public int getCode() {
@@ -32,6 +53,14 @@ public class BaseResp<T> {
 
 	public void setCode(int code) {
 		this.code = code;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	public T getResponse() {

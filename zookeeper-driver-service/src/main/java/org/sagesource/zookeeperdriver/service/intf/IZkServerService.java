@@ -1,6 +1,7 @@
 package org.sagesource.zookeeperdriver.service.intf;
 
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
+import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
 import org.sagesource.zookeeperdriver.service.dto.ZkServerInfoDto;
 
 import java.util.List;
@@ -15,6 +16,14 @@ import java.util.List;
  */
 public interface IZkServerService {
 
-	List<ZkServerInfoDto> findUseServerList() throws ZkDriverBusinessException;
+	/**
+	 * 正在使用的服务列表
+	 *
+	 * @return
+	 *
+	 * @throws ZkDriverBusinessException
+	 * @throws ZkDriverPlatformException
+	 */
+	List<ZkServerInfoDto> useServerList() throws ZkDriverBusinessException, ZkDriverPlatformException;
 
 }
