@@ -15,7 +15,9 @@ ext.versions = [
         commonsPool2Version : '2.4.2',
         logbackVersion      : '1.1.7',
         fastjsonVersion     : '1.2.18',
-        freemarkerVersion   : '2.3.23'
+        freemarkerVersion   : '2.3.23',
+        springfoxVersion    : '2.6.1',
+        jacksonVersion      : '2.7.7'
 ]
 
 ext.libraries = [
@@ -64,5 +66,13 @@ ext.libraries = [
         "fastjson"              : "com.alibaba:fastjson:${versions.fastjsonVersion}",
 
         //Freemarker
-        "freemarker"            : "org.freemarker:freemarker:${versions.freemarkerVersion}"
+        "freemarker"            : "org.freemarker:freemarker:${versions.freemarkerVersion}",
+
+        //SpringFox
+        "springfox"             : "io.springfox:springfox-swagger2:${versions.springfoxVersion}",
+        "springfox-ui"          : "io.springfox:springfox-swagger-ui:${versions.springfoxVersion}",
+
+        //Jackson
+        "jackson-core"          : "com.fasterxml.jackson.core:jackson-core:${versions.jacksonVersion}",
+        "jackson-databind"      : "com.fasterxml.jackson.core:jackson-databind:${versions.jacksonVersion}",
 ]

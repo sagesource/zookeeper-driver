@@ -11,7 +11,8 @@
     <context:component-scan base-package="org.sagesource.zookeeperdriver">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
-        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
     <aop:aspectj-autoproxy/>
@@ -26,6 +27,7 @@
     <beans profile="development">
         <context:property-placeholder
                 location="classpath:application.properties,classpath:*-development.properties"/>
+        <import resource="applicationContext-springfox.xml"/>
     </beans>
     <beans profile="integrationtest">
         <context:property-placeholder

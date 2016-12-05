@@ -79,6 +79,9 @@
     </bean>
 
     <mvc:default-servlet-handler/>
+    <!-- Enables swgger ui-->
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans>

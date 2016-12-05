@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Spring Fox 配置 -->
+    <bean name="applicationSwaggerConfig" class="org.sagesource.zookeeperdriver.web.springfox.SpringFoxConfig">
+        <property name="title" value="${springfox.title}"/>
+        <property name="serviceUri" value="${springfox.serviceUri}"/>
+        <property name="description" value="${springfox.description}"/>
+        <property name="version" value="${springfox.version}"/>
+        <property name="controllerPackage" value="${springfox.controllerPackage}"/>
+    </bean>
+
+</beans>

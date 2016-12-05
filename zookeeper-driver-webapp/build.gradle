@@ -29,6 +29,7 @@ dependencies {
             libraries.'servlet'
     )
 
+
     compile(
             libraries.'aspectj',
             libraries.'spring-webmvc',
@@ -36,4 +37,12 @@ dependencies {
             libraries.'fastjson',
             project(':zookeeper-driver-service')
     )
+    if (env == "development") {
+        compile(
+                libraries.'springfox',
+                libraries.'springfox-ui',
+                libraries.'jackson-core',
+                libraries.'jackson-databind'
+        )
+    }
 }
