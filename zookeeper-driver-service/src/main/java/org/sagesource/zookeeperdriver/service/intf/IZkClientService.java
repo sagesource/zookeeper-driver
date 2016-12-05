@@ -1,6 +1,8 @@
 package org.sagesource.zookeeperdriver.service.intf;
 
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
+import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
+import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
 
 /**
  * <p>ZK客户端操作Service</p>
@@ -17,7 +19,7 @@ public interface IZkClientService {
 	 *
 	 * @param clientKey
 	 */
-	ZkClientWrapper lineToZookeeper(String clientKey) throws Exception;
+	ZkClientWrapper lineToZookeeper(String clientKey) throws ZkDriverBusinessException, ZkDriverPlatformException;
 
 	/**
 	 * 关闭客户端连接

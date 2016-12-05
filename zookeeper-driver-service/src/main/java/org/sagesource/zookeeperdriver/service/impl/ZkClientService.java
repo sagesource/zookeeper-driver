@@ -9,6 +9,8 @@ import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
 import org.sagesource.zookeeperdriver.entity.ZkServerInfo;
 import org.sagesource.zookeeperdriver.entity.ZkServerInfoExample;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
+import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
+import org.sagesource.zookeeperdriver.helper.logger.LoggerHelper;
 import org.sagesource.zookeeperdriver.mapper.ZkServerInfoMapper;
 import org.sagesource.zookeeperdriver.service.intf.IZkClientService;
 import org.slf4j.Logger;
@@ -39,7 +41,7 @@ public class ZkClientService implements IZkClientService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public ZkClientWrapper lineToZookeeper(String clientKey) throws Exception {
+	public ZkClientWrapper lineToZookeeper(String clientKey) throws ZkDriverBusinessException, ZkDriverPlatformException {
 		try {
 			LOGGER.info("查询zk服务配置 client_key=[{}]", clientKey);
 
@@ -72,9 +74,12 @@ public class ZkClientService implements IZkClientService {
 			return client;
 		} catch (ZkDriverBusinessException e) {
 			throw e;
-		} catch (Exception e) {
-			LOGGER.error("创建zk连接客户端失败! client_key=[{}]", clientKey, e);
+		} catch (ZkDriverPlatformException e) {
+			LOGGER.error(LoggerHelper.platformException("创建zk客户端连接失败 client_key=[{}]"), clientKey, e);
 			throw e;
+		} catch (Exception e) {
+			LOGGER.error(LoggerHelper.unknownException("创建zk客户端连接失败 client_key=[{}]"), clientKey, e);
+			throw new ZkDriverPlatformException(e);
 		}
 	}
 
