@@ -1,5 +1,9 @@
 package org.sagesource.zookeeperdriver.web.controller.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.sagesource.zookeeperdriver.helper.enums.HttpRespEnum;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
@@ -28,7 +32,8 @@ import java.util.List;
  * </pre>
  */
 @RestController
-@RequestMapping("/server")
+@RequestMapping(value = "/server", produces = "application/json")
+@Api(description = "ZK节点信息Api")
 public class ServerOperationController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServerOperationController.class);
 
@@ -40,6 +45,7 @@ public class ServerOperationController extends BaseController {
 	 *
 	 * @return
 	 */
+	@ApiOperation(value = "查询可用节点列表")
 	@RequestMapping(value = "useList", method = RequestMethod.GET)
 	public BaseResp<List<ZkServerUseInfoResp>> serverUseList() {
 		BaseResp<List<ZkServerUseInfoResp>> resp = new BaseResp<>();
