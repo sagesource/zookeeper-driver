@@ -1,5 +1,9 @@
 package org.sagesource.zookeeperdriver.web.controller.api;
 
+import org.sagesource.zookeeperdriver.web.controller.base.BaseController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * <p>ZK链接操作Controller</p>
  * <pre>
@@ -8,5 +12,7 @@ package org.sagesource.zookeeperdriver.web.controller.api;
  *     email       job.xueqi@gmail.com
  * </pre>
  */
-public class LinkOperationController {
+@RestController
+@RequestMapping("/link")
+public class LinkOperationController extends BaseController {
 }

@@ -1,6 +1,7 @@
 package org.sagesource.zookeeperdriver.client.pool;
 
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
+import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
 
 /**
  * <p>连接池客户端操作Invoke,封装资源获取和还原的过程</p>
@@ -20,11 +21,17 @@ public class ClientPoolInvoke {
 	 * @param <T>       返回值对象
 	 * @return
 	 */
-	public static <T> T invoke(String clientKey, PoolInvokeProcessor<T> processor) throws Exception {
-		ZkClientWrapper client = ClientPoolOperation.getClientFromPool(clientKey);
-		T               result = processor.processor(client);
-		ClientPoolOperation.returnClientToPool(client);
-		return result;
+	public static <T> T invoke(String clientKey, PoolInvokeProcessor<T> processor) throws ZkDriverPlatformException {
+		try {
+			ZkClientWrapper client = ClientPoolOperation.getClientFromPool(clientKey);
+			T               result = processor.processor(client);
+			ClientPoolOperation.returnClientToPool(client);
+			return result;
+		} catch (ZkDriverPlatformException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new ZkDriverPlatformException("pool invoke method exception", e);
+		}
 	}
 
 	/**

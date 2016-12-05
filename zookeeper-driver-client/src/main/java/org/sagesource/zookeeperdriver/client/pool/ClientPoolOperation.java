@@ -6,7 +6,7 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.sagesource.zookeeperdriver.client.property.ZkClientConnectProperty;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
-import org.sagesource.zookeeperdriver.helper.exception.ZkDriverClientPoolException;
+import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,12 +57,16 @@ public class ClientPoolOperation {
 	 * @param clientKey
 	 * @return
 	 */
-	public static ZkClientWrapper getClientFromPool(String clientKey) throws Exception {
+	public static ZkClientWrapper getClientFromPool(String clientKey) throws ZkDriverPlatformException {
 		LOGGER.debug("get client from pool, client_key:[{}]", clientKey);
-		if (factoryMap.get(clientKey) == null) throw new ZkDriverClientPoolException("连接池不存在");
+		if (factoryMap.get(clientKey) == null) throw new ZkDriverPlatformException("连接池不存在");
 
-		ZkClientWrapper client = factoryMap.get(clientKey).borrowObject();
-		return client;
+		try {
+			ZkClientWrapper client = factoryMap.get(clientKey).borrowObject();
+			return client;
+		} catch (Exception e) {
+			throw new ZkDriverPlatformException("获取连接错误", e);
+		}
 	}
 
 	/**
@@ -70,12 +74,12 @@ public class ClientPoolOperation {
 	 *
 	 * @param client
 	 */
-	public static void returnClientToPool(ZkClientWrapper client) throws ZkDriverClientPoolException {
+	public static void returnClientToPool(ZkClientWrapper client) throws ZkDriverPlatformException {
 		Preconditions.checkNotNull(client, "client is null");
 
 		LOGGER.debug("return client to pool,client_key:[{}]", client.getClientKey());
 
-		if (factoryMap.get(client.getClientKey()) == null) throw new ZkDriverClientPoolException("连接池不存在");
+		if (factoryMap.get(client.getClientKey()) == null) throw new ZkDriverPlatformException("连接池不存在");
 
 		factoryMap.get(client.getClientKey()).returnObject(client);
 	}

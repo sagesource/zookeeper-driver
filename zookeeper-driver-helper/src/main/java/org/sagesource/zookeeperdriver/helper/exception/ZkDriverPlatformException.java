@@ -8,12 +8,20 @@ package org.sagesource.zookeeperdriver.helper.exception;
  *     email       job.xueqi@gmail.com
  * </pre>
  */
-public class ZkDriverClientPoolException extends Exception {
+public class ZkDriverPlatformException extends Exception {
 	private String message;
 
-	public ZkDriverClientPoolException(String message) {
+	public ZkDriverPlatformException(String message) {
 		super(message);
 		this.message = message;
+	}
+
+	public ZkDriverPlatformException(String message, Throwable e) {
+		super(message, e);
+	}
+
+	public ZkDriverPlatformException(Throwable e) {
+		super(e);
 	}
 
 	@Override
