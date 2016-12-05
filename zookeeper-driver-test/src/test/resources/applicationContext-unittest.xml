@@ -54,4 +54,15 @@
         <property name="annotationClass" value="org.mybatis.spring.annotation.MapperScan"/>
     </bean>
 
+    <!-- ZK连接池配置 -->
+    <bean id="zkPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig">
+        <property name="maxTotal" value="${zk.pool.maxTotal}"/>
+        <property name="minIdle" value="${zk.pool.minIdle}"/>
+        <property name="maxIdle" value="${zk.pool.maxIdle}"/>
+        <property name="maxWaitMillis" value="${zk.pool.maxWaitMillis}"/>
+        <property name="lifo" value="${zk.pool.lifo}"/>
+        <property name="minEvictableIdleTimeMillis" value="${zk.pool.minEvictableIdleTimeMillis}"/>
+        <property name="blockWhenExhausted" value="${zk.pool.blockWhenExhausted}"/>
+    </bean>
+
 </beans>

@@ -1,9 +1,11 @@
 package test.org.sagesource.zookeeperdriver.service;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.sagesource.zookeeperdriver.client.pool.ClientPoolOperation;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
 import org.sagesource.zookeeperdriver.service.dto.ZkDataDto;
 import org.sagesource.zookeeperdriver.service.dto.ZkNodeDto;
@@ -31,33 +33,34 @@ public class ZkNodeServiceTest extends BaseTest {
 
 	private ZkClientWrapper client;
 
+	private String clientKey = "120102198765";
+
 	@Before
 	public void before() throws Exception {
-		client = zkClientService.lineToZookeeper(1);
+		client = zkClientService.lineToZookeeper(clientKey);
 		Assert.assertNotNull(client);
 	}
 
-	@Test
+	@After
 	public void after() {
-		zkClientService.closeZkClient(client);
+		ClientPoolOperation.destory();
 	}
 
 	@Test
 	public void checkNodeExistTest() throws Exception {
-		zkNodeService.checkNodeExist(client, "/");
+		boolean result = zkNodeService.checkNodeExist(clientKey, "/");
+		Assert.assertEquals(true, result);
 	}
 
 	@Test
 	public void findChildrenNodeTest() throws Exception {
-		List<ZkNodeDto> list = zkNodeService.findChildrenNode(client, "/xueqi");
-		list.forEach((dto) -> {
-			System.out.println(ReflectionToStringBuilder.toString(dto));
-		});
+		List<ZkNodeDto> list = zkNodeService.findChildrenNode(clientKey, "/");
+		list.forEach((dto) -> System.out.println(ReflectionToStringBuilder.toString(dto)));
 	}
 
 	@Test
 	public void readNodeDataTest() throws Exception {
-		ZkDataDto data = zkNodeService.readNodeData(client, "/xueqi");
+		ZkDataDto data = zkNodeService.readNodeData(clientKey, "/xueqi/unit");
 		Assert.assertNotNull(data);
 
 		System.out.println(ReflectionToStringBuilder.toString(data));
@@ -65,16 +68,16 @@ public class ZkNodeServiceTest extends BaseTest {
 
 	@Test
 	public void createNodeTest() throws Exception {
-		zkNodeService.createNode(client, "/xueqi/unit", "unit");
+		zkNodeService.createNode(clientKey, "/xueqi/unit", "unit");
 	}
 
 	@Test
 	public void editNodeDataTest() throws Exception {
-		zkNodeService.editNodeData(client, "/xueqi/unit", "unit222");
+		zkNodeService.editNodeData(clientKey, "/xueqi/unit", "unit222");
 	}
 
 	@Test
 	public void deleteNodeTest() throws Exception {
-		zkNodeService.deleteNode(client, "/xueqi/unit");
+		zkNodeService.deleteNode(clientKey, "/xueqi/unit");
 	}
 }

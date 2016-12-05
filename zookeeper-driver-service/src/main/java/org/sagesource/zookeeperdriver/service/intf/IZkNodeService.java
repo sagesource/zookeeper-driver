@@ -19,55 +19,55 @@ public interface IZkNodeService {
 	/**
 	 * 判断节点是否存在
 	 *
-	 * @param client zk客户端
-	 * @param path   待检查节点
+	 * @param clientKey
+	 * @param path      待检查节点
 	 * @return true:存在 false:不存在
 	 */
-	boolean checkNodeExist(ZkClientWrapper client, String path) throws Exception;
+	boolean checkNodeExist(String clientKey, String path) throws Exception;
 
 	/**
 	 * 获得节点的子节点列表
 	 *
-	 * @param client     zk连接客户端
+	 * @param clientKey
 	 * @param parentPath 当前节点
 	 * @return
 	 */
-	List<ZkNodeDto> findChildrenNode(ZkClientWrapper client, String parentPath) throws Exception;
+	List<ZkNodeDto> findChildrenNode(String clientKey, String parentPath) throws Exception;
 
 	/**
 	 * 获取节点的数据
 	 *
-	 * @param client zk连接客户端
-	 * @param path   当前节点
+	 * @param clientKey
+	 * @param path      当前节点
 	 * @return
 	 */
-	ZkDataDto readNodeData(ZkClientWrapper client, String path) throws Exception;
+	ZkDataDto readNodeData(String clientKey, String path) throws Exception;
 
 	/**
 	 * 创建节点
 	 *
-	 * @param client
-	 * @param path   节点
-	 * @param data   数据
+	 * @param clientKey
+	 * @param path      节点
+	 * @param data      数据
 	 */
-	void createNode(ZkClientWrapper client, String path, String data) throws Exception;
+	void createNode(String clientKey, String path, String data) throws Exception;
 
 	/**
 	 * 更新节点数据
 	 *
-	 * @param client
+	 * @param clientKey
 	 * @param path   节点路径
 	 * @param data   更新数据
 	 * @throws Exception
 	 */
-	void editNodeData(ZkClientWrapper client, String path, String data) throws Exception;
+	void editNodeData(String clientKey, String path, String data) throws Exception;
 
 	/**
 	 * 删除节点
 	 *
-	 * @param client
+	 * @param clientKey
 	 * @param path   删除节点
 	 * @throws Exception
 	 */
-	void deleteNode(ZkClientWrapper client, String path) throws Exception;
+	void deleteNode(String clientKey, String path) throws Exception;
 }

@@ -88,6 +88,7 @@ public class ClientPoolOperation {
 	}
 
 	private static void destory(String clientKey) {
+		LOGGER.debug("close zk client pool,client_key[{}]", clientKey);
 		if (factoryMap.get(clientKey) != null) {
 			factoryMap.get(clientKey).clear();
 			factoryMap.remove(clientKey);

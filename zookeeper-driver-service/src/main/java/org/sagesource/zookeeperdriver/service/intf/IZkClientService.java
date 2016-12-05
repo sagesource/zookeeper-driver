@@ -15,9 +15,9 @@ public interface IZkClientService {
 	/**
 	 * 根据serverId 连接到zk服务
 	 *
-	 * @param serverInfoId
+	 * @param clientKey
 	 */
-	ZkClientWrapper lineToZookeeper(int serverInfoId) throws Exception;
+	ZkClientWrapper lineToZookeeper(String clientKey) throws Exception;
 
 	/**
 	 * 关闭客户端连接

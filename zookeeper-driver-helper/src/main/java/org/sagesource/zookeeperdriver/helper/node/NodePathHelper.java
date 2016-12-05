@@ -23,6 +23,7 @@ public class NodePathHelper {
 	 * @return
 	 */
 	public static boolean checkPath(String path) {
+		if (StringUtils.equals(path, "/")) return true;
 		if (StringUtils.isEmpty(path)) return false;
 		if (StringUtils.endsWith(path, "/")) return false;
 

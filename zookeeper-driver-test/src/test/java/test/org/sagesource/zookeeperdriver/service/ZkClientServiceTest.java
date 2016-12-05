@@ -22,7 +22,7 @@ public class ZkClientServiceTest extends BaseTest{
 
 	@Test
 	public void lineToZookeeperTest() throws Exception {
-		ZkClientWrapper client = zkClientService.lineToZookeeper(1);
+		ZkClientWrapper client = zkClientService.lineToZookeeper("120102198765");
 		Assert.assertNotNull(client);
 
 		zkClientService.closeZkClient(client);

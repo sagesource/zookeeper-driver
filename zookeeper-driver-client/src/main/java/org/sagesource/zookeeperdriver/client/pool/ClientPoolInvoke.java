@@ -15,8 +15,8 @@ public class ClientPoolInvoke {
 	/**
 	 * invoke执行方法,可以在里面封装链接的获取和归还
 	 *
-	 * @param clientKey
-	 * @param processor
+	 * @param clientKey 客户端key
+	 * @param processor 处理逻辑类
 	 * @param <T>       返回值对象
 	 * @return
 	 */
@@ -33,6 +33,6 @@ public class ClientPoolInvoke {
 	 * @param <T>
 	 */
 	public interface PoolInvokeProcessor<T> {
-		public T processor(ZkClientWrapper client);
+		public T processor(ZkClientWrapper client) throws Exception;
 	}
 }
