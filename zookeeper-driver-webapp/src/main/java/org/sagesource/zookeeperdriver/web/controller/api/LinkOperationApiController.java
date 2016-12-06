@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
 import org.sagesource.zookeeperdriver.helper.enums.HttpRespEnum;
 import org.sagesource.zookeeperdriver.service.intf.IZkClientService;
-import org.sagesource.zookeeperdriver.web.controller.base.BaseController;
+import org.sagesource.zookeeperdriver.web.controller.base.BaseApiController;
 import org.sagesource.zookeeperdriver.web.vo.base.BaseResp;
 import org.sagesource.zookeeperdriver.web.vo.response.LinkServerResp;
 import org.slf4j.Logger;
@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/link", produces = "application/json")
 @Api(description = "连接操作Api")
-public class LinkOperationController extends BaseController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(LinkOperationController.class);
+public class LinkOperationApiController extends BaseApiController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(LinkOperationApiController.class);
 
 	@Autowired
 	private IZkClientService zkClientService;

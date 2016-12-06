@@ -2,14 +2,12 @@ package org.sagesource.zookeeperdriver.web.controller.api;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.sagesource.zookeeperdriver.helper.enums.HttpRespEnum;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
 import org.sagesource.zookeeperdriver.service.dto.ZkServerInfoDto;
 import org.sagesource.zookeeperdriver.service.intf.IZkServerService;
-import org.sagesource.zookeeperdriver.web.controller.base.BaseController;
+import org.sagesource.zookeeperdriver.web.controller.base.BaseApiController;
 import org.sagesource.zookeeperdriver.web.vo.base.BaseResp;
 import org.sagesource.zookeeperdriver.web.vo.response.ZkServerUseInfoResp;
 import org.slf4j.Logger;
@@ -34,8 +32,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/server", produces = "application/json")
 @Api(description = "ZK Server操作Api")
-public class ServerOperationController extends BaseController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ServerOperationController.class);
+public class ServerOperationApiController extends BaseApiController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServerOperationApiController.class);
 
 	@Autowired
 	private IZkServerService zkServerService;

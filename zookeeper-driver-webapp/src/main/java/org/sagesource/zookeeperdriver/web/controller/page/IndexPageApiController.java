@@ -1,6 +1,6 @@
 package org.sagesource.zookeeperdriver.web.controller.page;
 
-import org.sagesource.zookeeperdriver.web.controller.base.BaseController;
+import org.sagesource.zookeeperdriver.web.controller.base.BaseApiController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * </pre>
  */
 @Controller
-public class IndexPageController extends BaseController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(IndexPageController.class);
+public class IndexPageApiController extends BaseApiController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(IndexPageApiController.class);
 
 	/**
 	 * 首页

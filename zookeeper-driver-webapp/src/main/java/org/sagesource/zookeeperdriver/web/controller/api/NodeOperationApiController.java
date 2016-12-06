@@ -7,7 +7,7 @@ import org.sagesource.zookeeperdriver.helper.enums.HttpRespEnum;
 import org.sagesource.zookeeperdriver.service.dto.ZkDataDto;
 import org.sagesource.zookeeperdriver.service.dto.ZkNodeDto;
 import org.sagesource.zookeeperdriver.service.intf.IZkNodeService;
-import org.sagesource.zookeeperdriver.web.controller.base.BaseController;
+import org.sagesource.zookeeperdriver.web.controller.base.BaseApiController;
 import org.sagesource.zookeeperdriver.web.vo.base.BaseResp;
 import org.sagesource.zookeeperdriver.web.vo.response.NodeChildrenResp;
 import org.sagesource.zookeeperdriver.web.vo.response.NodeDataResp;
@@ -34,8 +34,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/node", produces = "application/json")
 @Api(description = "ZK节点操作Api")
-public class NodeOperationController extends BaseController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(NodeOperationController.class);
+public class NodeOperationApiController extends BaseApiController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(NodeOperationApiController.class);
 
 	@Autowired
 	private IZkNodeService zkNodeService;
