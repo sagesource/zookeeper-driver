@@ -42,6 +42,10 @@ public class BaseResp<T> {
 		@ApiModelProperty("请求响应时间")
 		private long respTime;
 
+		public RespContext() {
+			this.reqTime = System.currentTimeMillis();
+		}
+
 		public long getReqTime() {
 			return reqTime;
 		}

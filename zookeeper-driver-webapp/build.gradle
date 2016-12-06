@@ -35,14 +35,12 @@ dependencies {
             libraries.'spring-webmvc',
             libraries.'freemarker',
             libraries.'fastjson',
+
+            libraries.'springfox',
+            libraries.'springfox-ui',
+            libraries.'jackson-core',
+            libraries.'jackson-databind',
+
             project(':zookeeper-driver-service')
     )
-    if (env == "development") {
-        compile(
-                libraries.'springfox',
-                libraries.'springfox-ui',
-                libraries.'jackson-core',
-                libraries.'jackson-databind'
-        )
-    }
 }

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>ZK服务节点操作Controller</p>
+ * <p>ZK server操作Controller</p>
  * <pre>
  *     author      Sage XueQi
  *     date        2016/12/3
@@ -33,7 +33,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/server", produces = "application/json")
-@Api(description = "ZK节点信息Api")
+@Api(description = "ZK Server操作Api")
 public class ServerOperationController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServerOperationController.class);
 
@@ -41,15 +41,14 @@ public class ServerOperationController extends BaseController {
 	private IZkServerService zkServerService;
 
 	/**
-	 * 可用节点列表
+	 * 可用server列表
 	 *
 	 * @return
 	 */
-	@ApiOperation(value = "查询可用节点列表")
-	@RequestMapping(value = "useList", method = RequestMethod.GET)
-	public BaseResp<List<ZkServerUseInfoResp>> serverUseList() {
+	@ApiOperation(value = "查询可用server列表")
+	@RequestMapping(value = "useServerList", method = RequestMethod.GET)
+	public BaseResp<List<ZkServerUseInfoResp>> useServerList() throws ZkDriverBusinessException, ZkDriverPlatformException {
 		BaseResp<List<ZkServerUseInfoResp>> resp = new BaseResp<>();
-		resp.getRespcontext().setReqTime(System.currentTimeMillis());
 
 		try {
 			List<ZkServerInfoDto>     serverList = zkServerService.useServerList();
@@ -63,15 +62,8 @@ public class ServerOperationController extends BaseController {
 			resp.setResponse(respList);
 			resp.setCode(HttpRespEnum.R_100.getCode());
 			resp.setMessage(HttpRespEnum.R_100.getMessage());
-		} catch (ZkDriverBusinessException e) {
-			resp.setCode(HttpRespEnum.R_200.getCode());
-			resp.setMessage(e.getMessage());
-		} catch (ZkDriverPlatformException e) {
-			resp.setCode(HttpRespEnum.R_300.getCode());
-			resp.setMessage(HttpRespEnum.R_300.getMessage());
 		} catch (Exception e) {
-			resp.setCode(HttpRespEnum.R_400.getCode());
-			resp.setMessage(HttpRespEnum.R_400.getMessage());
+			throw e;
 		} finally {
 			resp.getRespcontext().setRespTime(System.currentTimeMillis());
 		}
