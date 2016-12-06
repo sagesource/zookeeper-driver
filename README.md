@@ -21,8 +21,9 @@
 - 执行项目根路径db目录的sql文件,会自动创建zk_driver数据库,并导入测试初始数据
 - 修改host文件,将zk.sagesource.com映射到自己的zk服务器ip
 - 修改zookeeper-driver-webapp/development/development的jdbc-development.properties配置文件.修改数据库连接 用户名 密码等
-- 在项目的根路径执行gradle的打包命令
-    ./gradlew war -Dprofile=development
+- 在项目的根路径执行gradle的打包命令  
+    `./gradlew war -Dprofile=development`
+- 进入zookeeper-driver-webapp/build/libs文件夹
 
 ## 开发说明
 ### 工程结构说明
