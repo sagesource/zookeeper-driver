@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
-import org.sagesource.zookeeperdriver.client.listener.ZkConnectionStatListener;
+import org.sagesource.zookeeperdriver.client.listener.curator.ZkConnectionStatListener;
 import org.sagesource.zookeeperdriver.client.property.ZkClientConnectProperty;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
 

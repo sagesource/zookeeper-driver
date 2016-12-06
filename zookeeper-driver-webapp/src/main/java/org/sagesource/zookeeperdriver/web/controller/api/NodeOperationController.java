@@ -4,13 +4,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.sagesource.zookeeperdriver.helper.enums.HttpRespEnum;
-import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
-import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
+import org.sagesource.zookeeperdriver.service.dto.ZkDataDto;
 import org.sagesource.zookeeperdriver.service.dto.ZkNodeDto;
 import org.sagesource.zookeeperdriver.service.intf.IZkNodeService;
 import org.sagesource.zookeeperdriver.web.controller.base.BaseController;
 import org.sagesource.zookeeperdriver.web.vo.base.BaseResp;
 import org.sagesource.zookeeperdriver.web.vo.response.NodeChildrenResp;
+import org.sagesource.zookeeperdriver.web.vo.response.NodeDataResp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -32,7 +32,7 @@ import java.util.List;
  * </pre>
  */
 @RestController
-@RequestMapping(value = "/node",produces = "application/json")
+@RequestMapping(value = "/api/node", produces = "application/json")
 @Api(description = "ZK节点操作Api")
 public class NodeOperationController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(NodeOperationController.class);
@@ -50,7 +50,7 @@ public class NodeOperationController extends BaseController {
 	@ApiOperation(value = "查询子节点列表")
 	@RequestMapping(value = "children", method = RequestMethod.GET)
 	public BaseResp<List<NodeChildrenResp>> queryNodeChildrenList(@ApiParam("客户端client_key") @RequestParam String clientKey,
-	                                                              @ApiParam("路径") @RequestParam String path) throws ZkDriverPlatformException, ZkDriverBusinessException {
+	                                                              @ApiParam("路径") @RequestParam String path) throws Exception {
 		BaseResp<List<NodeChildrenResp>> baseResp = new BaseResp<>();
 		baseResp.setCode(HttpRespEnum.R_100.getCode());
 		baseResp.setMessage(HttpRespEnum.R_100.getMessage());
@@ -60,8 +60,12 @@ public class NodeOperationController extends BaseController {
 			List<NodeChildrenResp> respList = new ArrayList<>();
 
 			nodeList.forEach((dto) -> {
-				NodeChildrenResp resp = new NodeChildrenResp();
+				NodeChildrenResp      resp = new NodeChildrenResp();
+				NodeChildrenResp.Stat stat = new NodeChildrenResp.Stat();
 				BeanUtils.copyProperties(dto, resp);
+				BeanUtils.copyProperties(dto.getStat(), stat);
+
+				resp.setStat(stat);
 				respList.add(resp);
 			});
 			baseResp.setResponse(respList);
@@ -70,7 +74,124 @@ public class NodeOperationController extends BaseController {
 		} finally {
 			baseResp.getRespcontext().setRespTime(System.currentTimeMillis());
 		}
+		return baseResp;
+	}
+
+	/**
+	 * 读取节点数据
+	 *
+	 * @param clientKey
+	 * @param path
+	 * @return
+	 */
+	@ApiOperation(value = "读取节点数据")
+	@RequestMapping(value = "readData", method = RequestMethod.GET)
+	public BaseResp<NodeDataResp> readData(@ApiParam("客户端client_key") @RequestParam String clientKey,
+	                                       @ApiParam("路径") @RequestParam String path) throws Exception {
+		BaseResp<NodeDataResp> baseResp = new BaseResp<>();
+		baseResp.setCode(HttpRespEnum.R_100.getCode());
+		baseResp.setMessage(HttpRespEnum.R_100.getMessage());
+
+		try {
+			ZkDataDto         data = zkNodeService.readNodeData(clientKey, path);
+			NodeDataResp      resp = new NodeDataResp();
+			NodeDataResp.Stat stat = new NodeDataResp.Stat();
+			BeanUtils.copyProperties(data, resp);
+			BeanUtils.copyProperties(data.getStat(), stat);
+
+			resp.setStat(stat);
+			baseResp.setResponse(resp);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			baseResp.getRespcontext().setRespTime(System.currentTimeMillis());
+		}
+		return baseResp;
+	}
+
+	/**
+	 * 创建节点
+	 *
+	 * @param clientKey
+	 * @param path
+	 * @param data
+	 * @return
+	 */
+	@ApiOperation(value = "创建节点")
+	@RequestMapping(value = "createNode", method = RequestMethod.POST)
+	public BaseResp createNode(@ApiParam("客户端client_key") @RequestParam String clientKey,
+	                           @ApiParam("创建路径") @RequestParam String path,
+	                           @ApiParam("节点数据") @RequestParam String data) throws Exception {
+		BaseResp baseResp = new BaseResp<>();
+		baseResp.setCode(HttpRespEnum.R_100.getCode());
+		baseResp.setMessage(HttpRespEnum.R_100.getMessage());
+
+		try {
+			zkNodeService.createNode(clientKey, path, data);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			baseResp.getRespcontext().setRespTime(System.currentTimeMillis());
+		}
+		return baseResp;
+	}
+
+	/**
+	 * 更新节点数据
+	 *
+	 * @param clientKey
+	 * @param path
+	 * @param data
+	 * @return
+	 *
+	 * @throws Exception
+	 */
+	@ApiOperation(value = "更新节点数据")
+	@RequestMapping(value = "editData", method = RequestMethod.POST)
+	public BaseResp editData(@ApiParam("客户端client_key") @RequestParam String clientKey,
+	                         @ApiParam("创建路径") @RequestParam String path,
+	                         @ApiParam("节点数据") @RequestParam String data) throws Exception {
+		BaseResp baseResp = new BaseResp<>();
+		baseResp.setCode(HttpRespEnum.R_100.getCode());
+		baseResp.setMessage(HttpRespEnum.R_100.getMessage());
+
+		try {
+			zkNodeService.editNodeData(clientKey, path, data);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			baseResp.getRespcontext().setRespTime(System.currentTimeMillis());
+		}
 
 		return baseResp;
 	}
+
+	/**
+	 * 删除节点
+	 *
+	 * @param clientKey
+	 * @param path
+	 * @return
+	 *
+	 * @throws Exception
+	 */
+	@ApiOperation("删除节点")
+	@RequestMapping(value = "deleteData", method = RequestMethod.POST)
+	public BaseResp deleteData(@ApiParam("客户端client_key") @RequestParam String clientKey,
+	                           @ApiParam("创建路径") @RequestParam String path) throws Exception {
+		BaseResp baseResp = new BaseResp<>();
+		baseResp.setCode(HttpRespEnum.R_100.getCode());
+		baseResp.setMessage(HttpRespEnum.R_100.getMessage());
+
+		try {
+			zkNodeService.deleteNode(clientKey, path);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			baseResp.getRespcontext().setRespTime(System.currentTimeMillis());
+		}
+
+		return baseResp;
+	}
+
 }

@@ -4,37 +4,31 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * <p>node子节点信息Resp</p>
+ * <p>节点数据 响应Resp</p>
  * <pre>
  *     author      Sage XueQi
  *     date        2016/12/3
  *     email       job.xueqi@gmail.com
  * </pre>
  */
-@ApiModel("node子节点信息")
-public class NodeChildrenResp {
+@ApiModel("node节点数据信息")
+public class NodeDataResp {
 	/**
-	 * 父节点信息
+	 * 节点数据
 	 */
-	@ApiModelProperty("父节点信息")
-	private String  parentPath;
+	@ApiModelProperty("节点数据")
+	private String data;
 	/**
-	 * 节点名称
+	 * 数据版本
 	 */
-	@ApiModelProperty("节点名称")
-	private String  name;
-	/**
-	 * 是否还有叶子节点
-	 */
-	@ApiModelProperty("是否还有叶子节点")
-	private boolean hasChildren;
+	@ApiModelProperty("数据版本")
+	private int    version;
 	/**
 	 * 节点状态信息
 	 */
 	@ApiModelProperty("节点状态信息")
-	private Stat    stat;
+	private Stat   stat;
 
-	@ApiModel("节点状态信息")
 	public static class Stat {
 		/**
 		 * 节点创建时的zxid
@@ -181,28 +175,20 @@ public class NodeChildrenResp {
 		}
 	}
 
-	public String getParentPath() {
-		return parentPath;
+	public String getData() {
+		return data;
 	}
 
-	public void setParentPath(String parentPath) {
-		this.parentPath = parentPath;
+	public void setData(String data) {
+		this.data = data;
 	}
 
-	public String getName() {
-		return name;
+	public int getVersion() {
+		return version;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public boolean isHasChildren() {
-		return hasChildren;
-	}
-
-	public void setHasChildren(boolean hasChildren) {
-		this.hasChildren = hasChildren;
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public Stat getStat() {

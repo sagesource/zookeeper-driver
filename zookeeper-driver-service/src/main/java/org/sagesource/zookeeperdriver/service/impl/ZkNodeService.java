@@ -58,6 +58,7 @@ public class ZkNodeService implements IZkNodeService {
 
 		try {
 			if (StringUtils.isEmpty(clientKey)) throw new ZkDriverBusinessException("client key is null");
+			if (!checkNodeExist(clientKey, parentPath)) throw new ZkDriverBusinessException("节点不存在");
 
 			List<ZkNode> nodeList = ClientPoolInvoke.invoke(clientKey, client -> client.getChildren(parentPath));
 			nodeList.forEach((node) -> {
@@ -83,6 +84,7 @@ public class ZkNodeService implements IZkNodeService {
 		LOGGER.info("获取节点的数据 client_key=[{}],path=[{}]", clientKey, path);
 		try {
 			if (StringUtils.isEmpty(clientKey)) throw new ZkDriverBusinessException("client key is null");
+			if (!checkNodeExist(clientKey, path)) throw new ZkDriverBusinessException("节点不存在");
 
 			ZkData    data = ClientPoolInvoke.invoke(clientKey, client -> client.readData(path));
 			ZkDataDto dto  = new ZkDataDto();
@@ -108,6 +110,8 @@ public class ZkNodeService implements IZkNodeService {
 		try {
 			if (StringUtils.isEmpty(clientKey)) throw new ZkDriverBusinessException("client key is null");
 			if (StringUtils.isEmpty(data)) throw new ZkDriverBusinessException("创建数据为空");
+			if (checkNodeExist(clientKey, path)) throw new ZkDriverBusinessException("节点已存在");
+
 			ClientPoolInvoke.invoke(clientKey, client -> {
 				client.create(path, data.getBytes(Constants.CHARSET_UTF_8));
 				return null;
@@ -130,6 +134,7 @@ public class ZkNodeService implements IZkNodeService {
 		try {
 			if (StringUtils.isEmpty(clientKey)) throw new ZkDriverBusinessException("client key is null");
 			if (StringUtils.isEmpty(data)) throw new ZkDriverBusinessException("更新数据为空");
+			if (!checkNodeExist(clientKey, path)) throw new ZkDriverBusinessException("节点不存在");
 
 			//1.查询旧的数据版本号
 			ZkDataDto oldDataDto = readNodeData(clientKey, path);
@@ -156,6 +161,9 @@ public class ZkNodeService implements IZkNodeService {
 		LOGGER.info("删除节点 client_key=[{}],path=[{}]", clientKey, path);
 
 		try {
+			if (StringUtils.isEmpty(clientKey)) throw new ZkDriverBusinessException("client key is null");
+			if (!checkNodeExist(clientKey, path)) throw new ZkDriverBusinessException("节点不存在");
+
 			//查询旧节点的状态
 			ZkDataDto oldZnode = readNodeData(clientKey, path);
 			LOGGER.info("删除节点 client_key=[{}],path=[{}],old_znode=[{}]", clientKey, path, ReflectionToStringBuilder.toString(oldZnode));

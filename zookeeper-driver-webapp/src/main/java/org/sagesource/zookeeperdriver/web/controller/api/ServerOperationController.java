@@ -32,7 +32,7 @@ import java.util.List;
  * </pre>
  */
 @RestController
-@RequestMapping(value = "/server", produces = "application/json")
+@RequestMapping(value = "/api/server", produces = "application/json")
 @Api(description = "ZK Server操作Api")
 public class ServerOperationController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServerOperationController.class);
@@ -49,6 +49,8 @@ public class ServerOperationController extends BaseController {
 	@RequestMapping(value = "useServerList", method = RequestMethod.GET)
 	public BaseResp<List<ZkServerUseInfoResp>> useServerList() throws ZkDriverBusinessException, ZkDriverPlatformException {
 		BaseResp<List<ZkServerUseInfoResp>> resp = new BaseResp<>();
+		resp.setCode(HttpRespEnum.R_100.getCode());
+		resp.setMessage(HttpRespEnum.R_100.getMessage());
 
 		try {
 			List<ZkServerInfoDto>     serverList = zkServerService.useServerList();
@@ -60,8 +62,6 @@ public class ServerOperationController extends BaseController {
 			});
 
 			resp.setResponse(respList);
-			resp.setCode(HttpRespEnum.R_100.getCode());
-			resp.setMessage(HttpRespEnum.R_100.getMessage());
 		} catch (Exception e) {
 			throw e;
 		} finally {
