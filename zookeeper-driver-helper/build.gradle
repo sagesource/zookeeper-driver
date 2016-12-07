@@ -1,5 +1,5 @@
 // jar包的名字
-archivesBaseName = 'zookeeper-driver-service'
+archivesBaseName = 'zookeeper-driver-helper'
 
 dependencies {
     compile(

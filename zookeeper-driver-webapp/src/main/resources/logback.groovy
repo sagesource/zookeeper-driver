@@ -29,7 +29,6 @@ if (env == 'development' || env == 'integrationtest') {
     appender("CONSOLE", ConsoleAppender) {
         encoder(PatternLayoutEncoder) {
             pattern = "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
-            charset = Charset.forName("UTF-8")
         }
     }
 } else if (env == 'production') {
