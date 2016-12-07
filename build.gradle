@@ -128,15 +128,14 @@ subprojects { subproj ->
 
         //通用依赖
         compile(
+                libraries.'slf4j',
                 libraries.'logback',
-                libraries.'spring-context-support',
-                libraries.'commons-lang3'
+                libraries.'spring-context-support'
         )
         //通用测试依赖
         testCompile(
                 libraries.'junit',
-                libraries.'spring-test',
-                libraries.'mockito'
+                libraries.'spring-test'
         )
     }
 

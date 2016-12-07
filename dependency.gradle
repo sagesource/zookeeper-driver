@@ -4,7 +4,6 @@ ext.versions = [
         springVersion       : '4.3.3.RELEASE',
         servletVersion      : '3.1.0',
         junitVersion        : '4.12',
-        mockitoVersion      : '2.2.22',
         zkCuratorVersion    : '2.11.1',
         zkVersion           : '3.4.9',
         mybatisVersion      : '3.4.1',
@@ -14,18 +13,18 @@ ext.versions = [
         commonsLong3Version : '3.5',
         commonsPool2Version : '2.4.2',
         logbackVersion      : '1.1.7',
+        slf4jVersion        : '1.7.21',
         fastjsonVersion     : '1.2.18',
         freemarkerVersion   : '2.3.23',
         springfoxVersion    : '2.6.1',
-        jacksonVersion      : '2.7.7'
+        jacksonVersion      : '2.7.7',
+        groovyVersion       : '2.4.7',
+        guavaVersion        : '18.0',
 ]
 
 ext.libraries = [
         //Junit
         "junit"                 : "junit:junit:${versions.junitVersion}",
-
-        //Mockito
-        "mockito"               : "org.mockito:mockito-core:${versions.mockitoVersion}",
 
         //Aspectj
         "aspectj"               : "aspectj:aspectjweaver:${versions.aspectjVersion}",
@@ -53,14 +52,23 @@ ext.libraries = [
         "zkCurator"             : "org.apache.curator:curator-framework:${versions.zkCuratorVersion}",
         "zookeeper"             : "org.apache.zookeeper:zookeeper:${versions.zkVersion}",
 
-        //Apache Commons
+        //Guava
+        "guava"                 : "com.google.guava:guava:${versions.guavaVersion}",
+
+        //Apache Commons-lang3
         "commons-lang3"         : "org.apache.commons:commons-lang3:${versions.commonsLong3Version}",
 
-        //Apache Pool
+        //Apache Commons-Pool
         "commons-pool2"         : "org.apache.commons:commons-pool2:${versions.commonsPool2Version}",
+
+        //SLF4J
+        "slf4j"                 : "org.slf4j:slf4j-api:${versions.slf4jVersion}",
 
         //Logback
         "logback"               : "ch.qos.logback:logback-classic:${versions.logbackVersion}",
+
+        //Groovy
+        "groovy"                : "org.codehaus.groovy:groovy-all:${versions.groovyVersion}",
 
         //Fastjson
         "fastjson"              : "com.alibaba:fastjson:${versions.fastjsonVersion}",

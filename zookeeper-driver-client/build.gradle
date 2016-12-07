@@ -2,11 +2,8 @@
 archivesBaseName = 'zookeeper-driver-client'
 
 dependencies {
-    compile(libraries.'zkCurator') {
-        exclude group: 'org.apache.zookeeper', module: 'zookeeper'
-    }
     compile(
-            libraries.'logback',
+            libraries.'zkCurator',
             libraries.'zookeeper',
             libraries.'commons-pool2',
             project(':zookeeper-driver-helper')

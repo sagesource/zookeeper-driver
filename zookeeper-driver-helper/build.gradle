@@ -1,3 +1,9 @@
 // jar包的名字
 archivesBaseName = 'zookeeper-driver-service'
 
+dependencies {
+    compile(
+            libraries.'guava',
+            libraries.'commons-lang3'
+    )
+}
