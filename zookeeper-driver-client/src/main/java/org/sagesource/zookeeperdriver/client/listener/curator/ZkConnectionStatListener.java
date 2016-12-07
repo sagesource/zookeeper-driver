@@ -4,6 +4,8 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.state.ConnectionState;
 import org.apache.curator.framework.state.ConnectionStateListener;
 import org.apache.zookeeper.CreateMode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>连接状态监听</p>
@@ -14,9 +16,12 @@ import org.apache.zookeeper.CreateMode;
  * </pre>
  */
 public class ZkConnectionStatListener implements ConnectionStateListener {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ZkConnectionStatListener.class);
+
 	@Override
 	public void stateChanged(CuratorFramework client, ConnectionState newState) {
 		if (newState == ConnectionState.LOST) {
+			LOGGER.debug("zk client lost connect, ready reconnect");
 			for (int i = 0; i < 100; i++) {
 				try {
 					if (client.getZookeeperClient().blockUntilConnectedOrTimedOut()) {
@@ -29,6 +34,7 @@ public class ZkConnectionStatListener implements ConnectionStateListener {
 				} catch (Exception e) {
 				}
 			}
+			LOGGER.debug("zk client already reconnect");
 		}
 	}
 }

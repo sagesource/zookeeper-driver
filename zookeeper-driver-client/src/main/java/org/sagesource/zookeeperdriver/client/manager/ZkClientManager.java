@@ -1,12 +1,15 @@
 package org.sagesource.zookeeperdriver.client.manager;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.sagesource.zookeeperdriver.client.listener.curator.ZkConnectionStatListener;
 import org.sagesource.zookeeperdriver.client.property.ZkClientConnectProperty;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>Curator ZK操作客户端</p>
@@ -17,6 +20,8 @@ import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
  * </pre>
  */
 public class ZkClientManager {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ZkClientManager.class);
+
 	/**
 	 * 根据client key获取zk客户端 并判断不存在的时候是否创建
 	 *
@@ -66,6 +71,7 @@ public class ZkClientManager {
 	 * @return
 	 */
 	private static ZkClientWrapper obtainZkClient(ZkClientConnectProperty zkClientConnectProperty) {
+		LOGGER.debug("begin create ck connect client,connect property:[{}]", ReflectionToStringBuilder.toString(zkClientConnectProperty));
 		if (StringUtils.isEmpty(zkClientConnectProperty.getConnectionString()))
 			throw new NullPointerException("connection string is empty");
 		String clientKey = zkClientConnectProperty.getClientKey();

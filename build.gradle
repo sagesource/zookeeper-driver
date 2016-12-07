@@ -130,6 +130,7 @@ subprojects { subproj ->
         compile(
                 libraries.'slf4j',
                 libraries.'logback',
+                libraries.'groovy',
                 libraries.'spring-context-support'
         )
         //通用测试依赖

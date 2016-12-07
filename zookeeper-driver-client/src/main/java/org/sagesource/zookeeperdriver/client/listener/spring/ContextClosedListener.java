@@ -23,9 +23,8 @@ public class ContextClosedListener implements ApplicationListener<ContextClosedE
 	public void onApplicationEvent(ContextClosedEvent event) {
 		//防止重复执行。
 		if(event.getApplicationContext().getParent() == null) {
-			LOGGER.debug("Spring Context Closed...");
+			LOGGER.debug("spring context closing, ready close zk client pool");
 			ClientPoolOperation.destory();
-			LOGGER.debug("Zk Client Pool Closed...");
 		}
 	}
 }

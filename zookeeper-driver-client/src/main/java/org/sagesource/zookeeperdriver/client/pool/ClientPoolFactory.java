@@ -6,6 +6,8 @@ import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.sagesource.zookeeperdriver.client.manager.ZkClientManager;
 import org.sagesource.zookeeperdriver.client.property.ZkClientConnectProperty;
 import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>连接池Factory</p>
@@ -16,6 +18,8 @@ import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
  * </pre>
  */
 public class ClientPoolFactory extends BasePooledObjectFactory<ZkClientWrapper> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClientPoolFactory.class);
+
 	private ZkClientConnectProperty zkClientConnectProperty;
 
 	public ClientPoolFactory(ZkClientConnectProperty zkClientConnectProperty) {
@@ -24,6 +28,7 @@ public class ClientPoolFactory extends BasePooledObjectFactory<ZkClientWrapper> 
 
 	@Override
 	public ZkClientWrapper create() throws Exception {
+		LOGGER.debug("begin create zk connect client pool");
 		return ZkClientManager.getZkClient(zkClientConnectProperty);
 	}
 
@@ -34,6 +39,7 @@ public class ClientPoolFactory extends BasePooledObjectFactory<ZkClientWrapper> 
 
 	@Override
 	public void destroyObject(PooledObject<ZkClientWrapper> p) throws Exception {
+		LOGGER.debug("begin destroy zk connect client pool");
 		ZkClientManager.closeZkClient(p.getObject());
 		super.destroyObject(p);
 	}
