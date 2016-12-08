@@ -26,6 +26,9 @@
 - 池技术:Apache Commons-pool2 2.4.2 
 
 ## 快速开始
+### 常用命令
+- Gradle打包:gradle clean war -Dprofile=环境名称(development/integrationtest/production)
+
 ### war包部署方式(以打development环境的包为例)
 - 修改tomcat的catalina.bat(Linux为catalina.sh),为JAVA_OPTS添加参数 -Dspring.profiles.active=development
 
