@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap Login Form Template</title>
+    <title>Zookeeper-Driver</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
@@ -14,14 +14,6 @@
     <link rel="stylesheet" href="${rc.contextPath}/static/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="${rc.contextPath}/static/front/index/css/form-elements.css">
     <link rel="stylesheet" href="${rc.contextPath}/static/front/index/css/style.css">
-
-    <!-- Favicon and touch icons -->
-    <link rel="shortcut icon" href="assets/ico/favicon.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="${rc.contextPath}/static/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="${rc.contextPath}/static/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="${rc.contextPath}/static/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="${rc.contextPath}/static/ico/apple-touch-icon-57-precomposed.png">
-
 </head>
 
 <body>
@@ -33,11 +25,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text">
-                    <h1><strong>Bootstrap</strong> Login Form</h1>
+                    <h1><strong>Zookeeper-Driver</strong> Connect Page</h1>
+
                     <div class="description">
                         <p>
-                            This is a free responsive login form made with Bootstrap.
-                            Download it on <a href="http://azmind.com"><strong>AZMIND</strong></a>, customize and use it as you like!
+                            欢迎使用Zookeeper-Driver,首次使用请配置连接信息!
                         </p>
                     </div>
                 </div>
@@ -46,8 +38,9 @@
                 <div class="col-sm-6 col-sm-offset-3 form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3>Login to our site</h3>
-                            <p>Enter your username and password to log on:</p>
+                            <h3>Connect To Zookeeper</h3>
+
+                            <p>请选择要连接到的ZK服务:</p>
                         </div>
                         <div class="form-top-right">
                             <i class="fa fa-lock"></i>
@@ -56,31 +49,18 @@
                     <div class="form-bottom">
                         <form role="form" action="" method="post" class="login-form">
                             <div class="form-group">
-                                <label class="sr-only" for="form-username">Username</label>
-                                <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                <label class="sr-only" for="form-address">ZK服务</label>
+                                <select class="form-address form-control input-lg" name="form-address"
+                                        id="form-address">
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label class="sr-only" for="form-password">Password</label>
-                                <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                <label class="sr-only" for="form-info">服务信息</label>
+                                <input type="text" name="form-info" placeholder="zookeeper 服务信息"
+                                       class="form-info form-control" id="form-info" readonly>
                             </div>
-                            <button type="submit" class="btn">Sign in!</button>
+                            <button type="submit" class="btn">Connect!</button>
                         </form>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 social-login">
-                    <h3>...or login with:</h3>
-                    <div class="social-login-buttons">
-                        <a class="btn btn-link-2" href="#">
-                            <i class="fa fa-facebook"></i> Facebook
-                        </a>
-                        <a class="btn btn-link-2" href="#">
-                            <i class="fa fa-twitter"></i> Twitter
-                        </a>
-                        <a class="btn btn-link-2" href="#">
-                            <i class="fa fa-google-plus"></i> Google Plus
-                        </a>
                     </div>
                 </div>
             </div>
@@ -91,10 +71,16 @@
 
 
 <!-- Javascript -->
+<script type="application/javascript">
+    var baseContext = "${rc.contextPath}";
+</script>
+<script src="${rc.contextPath}/static/js/function.js"></script>
+<script src="${rc.contextPath}/static/js/api.js"></script>
 <script src="${rc.contextPath}/static/js/jquery.min.js"></script>
 <script src="${rc.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
 <script src="${rc.contextPath}/static/js/jquery.backstretch.min.js"></script>
 <script src="${rc.contextPath}/static/front/index/js/scripts.js"></script>
+<script src="${rc.contextPath}/static/front/index/js/operation.js"></script>
 
 </body>
 
