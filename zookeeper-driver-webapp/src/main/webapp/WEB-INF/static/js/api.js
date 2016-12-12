@@ -1,6 +1,7 @@
 /*
  API 信息
  */
-var uri = "http://10.101.44.142:9999/zookeeper-driver/api/";
+var uri = "http://localhost:9999/zookeeper-driver/api/";
 
 var useServerListApi = uri + "server/useServerList";
+var connectServerApi = uri + "link/connectServer"

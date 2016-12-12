@@ -77,8 +77,11 @@
 <script src="${rc.contextPath}/static/js/function.js"></script>
 <script src="${rc.contextPath}/static/js/api.js"></script>
 <script src="${rc.contextPath}/static/js/jquery.min.js"></script>
+
 <script src="${rc.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
-<script src="${rc.contextPath}/static/js/jquery.backstretch.min.js"></script>
+<script src="${rc.contextPath}/static/js/plugins/jquery.backstretch.min.js"></script>
+<script src="${rc.contextPath}/static/js/plugins/bootbox.min.js"></script>
+
 <script src="${rc.contextPath}/static/front/index/js/scripts.js"></script>
 <script src="${rc.contextPath}/static/front/index/js/operation.js"></script>
 

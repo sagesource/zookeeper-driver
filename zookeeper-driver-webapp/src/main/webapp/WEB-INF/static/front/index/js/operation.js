@@ -35,3 +35,20 @@ function useServerListChange() {
         $('#form-info').val(address);
     });
 }
+
+/**
+ * 连接到ZK服务
+ */
+function connectToServer() {
+    var clientKey = $('#form-address').children().val();
+    $.get(connectServerApi, function (result) {
+        var response = result.response;
+
+        if (result.code == 100) {
+
+        } else {
+
+        }
+
+    }, 'json');
+}
