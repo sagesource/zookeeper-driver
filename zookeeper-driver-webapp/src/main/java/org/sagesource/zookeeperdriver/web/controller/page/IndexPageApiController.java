@@ -26,7 +26,7 @@ public class IndexPageApiController extends BaseApiController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index() {
-		return "index/index";
+		return "front/index";
 	}
 
 }
