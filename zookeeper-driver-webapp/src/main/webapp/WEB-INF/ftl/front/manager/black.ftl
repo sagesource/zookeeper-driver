@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="${rc.contextPath}/static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${rc.contextPath}/static/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="${rc.contextPath}/static/front/manager/css/style.css">
-    <link rel="stylesheet" href="${rc.contextPath}/static/front/manager/css/node_manager.css">
 </head>
 <body>
 <header>
@@ -60,11 +59,8 @@
 </section>
 <!-- MENU SECTION END-->
 <div class="content-wrapper">
-    <div class="cls_node_tree">
-        ......11
-    </div>
     <div class="container">
-......
+
     </div>
 </div>
 <!-- CONTENT-WRAPPER SECTION END-->
