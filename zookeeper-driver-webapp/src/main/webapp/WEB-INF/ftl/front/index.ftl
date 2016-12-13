@@ -59,7 +59,7 @@
                                 <input type="text" name="form-info" placeholder="zookeeper 服务信息"
                                        class="form-info form-control" id="form-info" readonly>
                             </div>
-                            <button type="submit" class="btn">Connect!</button>
+                            <button type="button" class="btn" id="btn_connect">Connect!</button>
                         </form>
                     </div>
                 </div>

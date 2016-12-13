@@ -6,8 +6,8 @@ jQuery(document).ready(function () {
         , "static/front/index/img/backgrounds/1.jpg"
     ], {duration: 3000, fade: 750});
 
-    $('.login-form').on('submit', function (e) {
-
+    $('#btn_connect').click(function () {
+        connectToServer();
     });
 
     //.......//
