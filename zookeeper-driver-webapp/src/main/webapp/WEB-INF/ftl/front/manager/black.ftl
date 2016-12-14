@@ -8,19 +8,12 @@
 
     <link rel="stylesheet" href="${rc.contextPath}/static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${rc.contextPath}/static/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${rc.contextPath}/static/jstree/css/style.css">
+
     <link rel="stylesheet" href="${rc.contextPath}/static/front/manager/css/style.css">
+    <link rel="stylesheet" href="${rc.contextPath}/static/front/manager/css/node_manager.css">
 </head>
 <body>
-<header>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <strong>Email: </strong>job.xueqi@gmail.com
-            </div>
-
-        </div>
-    </div>
-</header>
 <!-- HEADER END-->
 <div class="navbar navbar-inverse set-radius-zero">
     <div class="container">
@@ -45,12 +38,9 @@
                 <div class="navbar-collapse collapse ">
                     <ul id="menu-top" class="nav navbar-nav navbar-right">
                         <li><a class="menu-top-active" href="index.html">节点管理</a></li>
-                        <li><a href="ui.html">UI Elements</a></li>
-                        <li><a href="table.html">Data Tables</a></li>
-                        <li><a href="forms.html">Forms</a></li>
-                        <li><a href="login.html">Login Page</a></li>
-                        <li><a href="blank.html">Blank Page</a></li>
-
+                        <li><a href="ui.html">集群监控</a></li>
+                        <li><a href="table.html">操作日志</a></li>
+                        <li><a href="forms.html">系统管理</a></li>
                     </ul>
                 </div>
             </div>
@@ -58,9 +48,24 @@
     </div>
 </section>
 <!-- MENU SECTION END-->
-<div class="content-wrapper">
-    <div class="container">
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="cls_node_tree">
+                <ul>
+                    <li data-jstree='{ "opened" : true }'>Root node
+                        <ul>
+                            <li data-jstree='{ "selected" : true }'>Child node 1</li>
+                            <li>Child node 2</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9 cls_node_operation">
+            ......
+        </div>
     </div>
 </div>
 <!-- CONTENT-WRAPPER SECTION END-->
@@ -68,5 +73,11 @@
 <script src="${rc.contextPath}/static/js/function.js"></script>
 <script src="${rc.contextPath}/static/js/api.js"></script>
 <script src="${rc.contextPath}/static/js/jquery.min.js"></script>
+
+<script src="${rc.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="${rc.contextPath}/static/js/plugins/bootbox.min.js"></script>
+
+<script src="${rc.contextPath}/static/jstree/js/jstree.min.js"></script>
+<script src="${rc.contextPath}/static/front/manager/js/operation.js"></script>
 </body>
 </html>
