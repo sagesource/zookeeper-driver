@@ -60,6 +60,17 @@
         </div>
         <div class="col-md-5 cls_node_operation">
             <h4 class="page-head-line" id="id_node_name">当前节点</h4>
+
+            <div>
+                <button type="button" class="btn btn-primary" id="id_btn_create_node" data-toggle="modal"
+                        data-target="#id_modal_create_node">
+                    创建节点
+                </button>
+                <button type="button" class="btn btn-warning">修改数据</button>
+                <button type="button" class="btn btn-danger">删除节点</button>
+            </div>
+            <div class="well well-sm" style="margin-top: 20px" id="id_zinfo_data"></div>
+
         </div>
         <div class="col-md-5 cls_node_operation">
             <h4 class="page-head-line">节点信息</h4>
@@ -132,6 +143,58 @@
         </div>
     </div>
 </div>
+
+<!-- modal -->
+<!-- 创建节点Modal -->
+<div class="modal fade" id="id_modal_create_node" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">关闭</span></button>
+                <h4 class="modal-title">创建节点</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress" id="id_progress_save_node" hidden>
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45"
+                         aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    </div>
+                </div>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="id_input_parent_path" class="col-sm-3 control-label">父节点路径</label>
+
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="id_input_parent_path" placeholder="父节点路径"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_input_node_name" class="col-sm-3 control-label">节点名称</label>
+
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="id_input_node_name" placeholder="节点名称,无需/开头"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_input_node_data" class="col-sm-3 control-label">节点数据</label>
+
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="id_input_node_data" placeholder="节点数据" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="id_btn_save_node">保存节点</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- CONTENT-WRAPPER SECTION END-->
 <script type="application/javascript">
     var baseContext = "${rc.contextPath}";
@@ -145,7 +208,7 @@
 <script src="${rc.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
 <script src="${rc.contextPath}/static/js/plugins/bootbox.min.js"></script>
 
-<script src="${rc.contextPath}/static/ztree/js/jquery.ztree.core.js"></script>
+<script src="${rc.contextPath}/static/ztree/js/jquery.ztree.all.min.js"></script>
 <script src="${rc.contextPath}/static/front/manager/js/operation.js"></script>
 </body>
 </html>
