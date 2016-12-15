@@ -57,7 +57,9 @@ public class NodeOperationApiController extends BaseApiController {
 	@ApiOperation(value = "查询子节点列表-Ztree")
 	@RequestMapping(value = "childrenForZtree", method = RequestMethod.GET)
 	public BaseResp<NodeChildrenRespForZtree> queryNodeChildrenForZtree(@ApiParam("客户端client_key") @RequestParam String clientKey,
-	                                                                    @ApiParam("路径,默认为 /") @RequestParam(name = "id", defaultValue = "/", required = false) String path) throws Exception {
+	                                                                    @ApiParam("路径,默认为 /") @RequestParam(name = "id", required = false) String path) throws Exception {
+		if (StringUtils.isEmpty(path)) path = "/";
+
 		BaseResp<NodeChildrenRespForZtree> baseResp = new BaseResp<>();
 		baseResp.setCode(HttpRespEnum.R_100.getCode());
 		baseResp.setMessage(HttpRespEnum.R_100.getMessage());

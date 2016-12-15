@@ -51,13 +51,84 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2 cls_node_operation">
+            <h4 class="page-head-line">节点结构</h4>
+
             <div class="cls_node_tree">
                 <ul id="id_node_tree" class="ztree"></ul>
             </div>
         </div>
-        <div class="col-md-9 cls_node_operation">
-            ......
+        <div class="col-md-5 cls_node_operation">
+            <h4 class="page-head-line" id="id_node_name">当前节点</h4>
+        </div>
+        <div class="col-md-5 cls_node_operation">
+            <h4 class="page-head-line">节点信息</h4>
+            <table class="table table-bordered table-hover" style="display: none" id="id_table_zinfo">
+                <thead>
+                <tr>
+                    <th>属性</th>
+                    <th>值</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>czxid</td>
+                    <td><span id="id_zinfo_czxid"></span></td>
+                    <td>节点创建时的zxid</td>
+                </tr>
+                <tr>
+                    <td>mzxid</td>
+                    <td><span id="id_zinfo_mzxid"></span></td>
+                    <td>节点最新一次更新发生时的zxid</td>
+                </tr>
+                <tr>
+                    <td>ctime</td>
+                    <td><span id="id_zinfo_ctime"></span></td>
+                    <td>节点创建时的时间戳</td>
+                </tr>
+                <tr>
+                    <td>mtime</td>
+                    <td><span id="id_zinfo_mtime"></span></td>
+                    <td>节点最新一次更新发生时的时间戳</td>
+                </tr>
+                <tr>
+                    <td>version</td>
+                    <td><span id="id_zinfo_version"></span></td>
+                    <td>节点数据的更新次数</td>
+                </tr>
+                <tr>
+                    <td>cversion</td>
+                    <td><span id="id_zinfo_cversion"></span></td>
+                    <td>子节点的更新次数</td>
+                </tr>
+                <tr>
+                    <td>aversion</td>
+                    <td><span id="id_zinfo_aversion"></span></td>
+                    <td>节点ACL(授权信息)的更新次数</td>
+                </tr>
+                <tr>
+                    <td>ephemeralOwner</td>
+                    <td><span id="id_zinfo_ephemeralOwner"></span></td>
+                    <td>如果该节点为ephemeral节点,与该节点绑定的session id</td>
+                </tr>
+                <tr>
+                    <td>dataLength</td>
+                    <td><span id="id_zinfo_dataLength"></span></td>
+                    <td>节点数据的字节数</td>
+                </tr>
+                <tr>
+                    <td>numChildren</td>
+                    <td><span id="id_zinfo_numChildren"></span></td>
+                    <td>子节点个数</td>
+                </tr>
+                <tr>
+                    <td>pzxid</td>
+                    <td><span id="id_zinfo_pzxid"></span></td>
+                    <td>子节点（或该节点）的最近一次 创建 / 删除 的id</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
