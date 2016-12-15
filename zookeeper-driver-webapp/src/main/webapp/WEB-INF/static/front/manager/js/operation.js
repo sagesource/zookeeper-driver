@@ -2,22 +2,38 @@ $(function () {
     initNodeTree();
 });
 
+/**
+ * 初始化树状结构信息
+ */
 function initNodeTree() {
-    var zTreeObj;
-    // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
-    var setting = {};
-    // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-    var zNodes = [
-        {
-            name: "test1", open: true, children: [
-            {name: "test1_1"}, {name: "test1_2"}]
+    //Ztree 配置
+    var setting = {
+        view: {
+            selectedMulti: false,
+            showIcon: false
         },
-        {
-            name: "test2", open: true, children: [
-            {name: "test2_1"}, {name: "test2_2"}]
+        async: {
+            // 开启异步加载
+            enable: true,
+            url: childrenForZtreeApi,
+            type: 'GET',
+            dataType: 'json',
+            // 自动提交的参数
+            autoParam: ['id'],
+            // 其他提交的参数
+            otherParam: ["clientKey", clientKey],
+            // 返回值处理
+            dataFilter: function (treeId, parentNode, responseData) {
+                if (responseData.response.id == "/") return responseData.response;
+                return responseData.response.children;
+            }
+        },
+        callback: {
+            beforeClick: function (treeId, treeNode) {
+
+            }
         }
-    ];
-    $(document).ready(function () {
-        zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-    });
+    };
+
+    $.fn.zTree.init($("#id_node_tree"), setting);
 }

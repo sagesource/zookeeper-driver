@@ -79,7 +79,7 @@ public class ZkClientWrapper {
 				boolean hasChildren = false;
 
 				// 获取子节点的子节点信息
-				List<String> tmpChildren = curatorFramework.getChildren().forPath(joinPath(finalPath, childrenName));
+				List<String> tmpChildren = curatorFramework.getChildren().forPath(NodePathHelper.joinPath(finalPath, childrenName));
 				if (tmpChildren != null && tmpChildren.size() > 0) hasChildren = true;
 
 				ZkNode znode = new ZkNode();
@@ -174,17 +174,6 @@ public class ZkClientWrapper {
 		return path;
 	}
 
-	/**
-	 * 连接节点
-	 *
-	 * @param path
-	 * @param children
-	 * @return
-	 */
-	private String joinPath(String path, String children) {
-		if ("/".equals(path)) return path + children;
-		return path + "/" + children;
-	}
 
 	//.......................................//
 	public String getClientKey() {

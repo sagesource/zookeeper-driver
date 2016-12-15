@@ -4,6 +4,8 @@ import org.sagesource.zookeeperdriver.web.controller.base.BasePageController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * <p>管理页面Controller</p>
@@ -23,8 +25,10 @@ public class ManagerPageController extends BasePageController {
 	 * @return
 	 */
 	@RequestMapping(value = "node", method = RequestMethod.GET)
-	public String nodeManager() {
-		return "front/manager/node_manager";
+	public ModelAndView nodeManager(ModelAndView mav, @RequestParam String clientKey) {
+		mav.addObject("clientKey", clientKey);
+		mav.setViewName("front/manager/node_manager");
+		return mav;
 	}
 
 }

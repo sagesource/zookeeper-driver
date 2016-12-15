@@ -36,5 +36,16 @@ public class NodePathHelper {
 		return count == 1;
 	}
 
+	/**
+	 * 连接节点
+	 *
+	 * @param path
+	 * @param children
+	 * @return
+	 */
+	public static String joinPath(String path, String children) {
+		if ("/".equals(path)) return path + children;
+		return path + "/" + children;
+	}
 
 }

@@ -53,7 +53,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="cls_node_tree">
-                <ul id="treeDemo" class="ztree"></ul>
+                <ul id="id_node_tree" class="ztree"></ul>
             </div>
         </div>
         <div class="col-md-9 cls_node_operation">
@@ -62,6 +62,10 @@
     </div>
 </div>
 <!-- CONTENT-WRAPPER SECTION END-->
+<script type="application/javascript">
+    var baseContext = "${rc.contextPath}";
+    var clientKey = "${clientKey}";
+</script>
 
 <script src="${rc.contextPath}/static/js/function.js"></script>
 <script src="${rc.contextPath}/static/js/api.js"></script>
