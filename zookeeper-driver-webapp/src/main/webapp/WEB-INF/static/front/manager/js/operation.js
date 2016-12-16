@@ -7,6 +7,9 @@ $(function () {
 
     eventBtnUpdateData();
     eventBtnSaveUpdate();
+
+    eventBtnRemoveNode();
+    eventBtnConfirmRemove();
 });
 
 /**
@@ -40,6 +43,7 @@ function initNodeTree() {
                 $('#id_node_name').html(treeNode.id);
                 $('#id_input_parent_path').val(treeNode.id);
                 $('#id_input_update_path').val(treeNode.id);
+                $('#id_input_remove_path').val(treeNode.id);
 
                 initNodeInfo(treeNode);
             }
@@ -184,6 +188,42 @@ function eventBtnSaveUpdate() {
             $('#id_progress_update_data').hide();
             $(this).removeAttr('disabled');
             bootbox.alert(result.message);
+        });
+    });
+}
+
+/**
+ * 删除节点按钮事件
+ */
+function eventBtnRemoveNode() {
+    $('#id_btn_remove_node').click(function () {
+        $('#id_btn_confirm_remove').removeAttr('disabled');
+        $('#id_progress_remove_node').hide();
+    });
+}
+
+/**
+ * 确认删除按钮事件
+ */
+function eventBtnConfirmRemove() {
+    $('#id_btn_confirm_remove').click(function () {
+        $(this).attr('disabled', true);
+        $('#id_progress_remove_node').show();
+
+        var path = $('#id_input_remove_path').val();
+
+        var data = {
+            clientKey: clientKey,
+            path: path
+        }
+
+        ajaxPost(deleteNodeApi, data, function (result) {
+            if (result.code == 100) {
+
+            } else {
+
+            }
+        }, function (error) {
         });
     });
 }

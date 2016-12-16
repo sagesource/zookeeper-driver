@@ -230,8 +230,8 @@ public class NodeOperationApiController extends BaseApiController {
 	 * @throws Exception
 	 */
 	@ApiOperation("删除节点")
-	@RequestMapping(value = "deleteData", method = RequestMethod.POST)
-	public BaseResp deleteData(@ApiParam("客户端client_key") @RequestParam String clientKey,
+	@RequestMapping(value = "deleteNode", method = RequestMethod.POST)
+	public BaseResp deleteNode(@ApiParam("客户端client_key") @RequestParam String clientKey,
 	                           @ApiParam("创建路径") @RequestParam String path) throws Exception {
 		BaseResp baseResp = new BaseResp<>();
 		baseResp.setCode(HttpRespEnum.R_100.getCode());

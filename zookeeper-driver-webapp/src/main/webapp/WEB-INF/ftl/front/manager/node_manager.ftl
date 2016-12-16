@@ -69,7 +69,9 @@
                 <button type="button" class="btn btn-warning" id="id_btn_update_data" data-toggle="modal"
                         data-target="#id_modal_update_data">修改数据
                 </button>
-                <button type="button" class="btn btn-danger">删除节点</button>
+                <button type="button" class="btn btn-danger" id="id_btn_remove_node" data-toggle="modal"
+                        data-target="#id_modal_remove_node">删除节点
+                </button>
             </div>
             <div class="well well-sm" style="margin-top: 20px" id="id_zinfo_data"></div>
 
@@ -241,6 +243,41 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="button" class="btn btn-warning" id="id_btn_save_update">保存更新</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 删除节点 -->
+<div class="modal fade" id="id_modal_remove_node" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">关闭</span></button>
+                <h4 class="modal-title" id="myModalLabel">删除节点(危险操作)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress" id="id_progress_remove_node" hidden>
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45"
+                         aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    </div>
+                </div>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="id_input_remove_path" class="col-sm-3 control-label">节点路径</label>
+
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="id_input_remove_path" placeholder="节点路径"
+                                   readonly>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-danger" id="id_btn_confirm_remove">确认删除</button>
             </div>
         </div>
     </div>
