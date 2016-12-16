@@ -66,7 +66,9 @@
                         data-target="#id_modal_create_node">
                     创建节点
                 </button>
-                <button type="button" class="btn btn-warning">修改数据</button>
+                <button type="button" class="btn btn-warning" id="id_btn_update_data" data-toggle="modal"
+                        data-target="#id_modal_update_data">修改数据
+                </button>
                 <button type="button" class="btn btn-danger">删除节点</button>
             </div>
             <div class="well well-sm" style="margin-top: 20px" id="id_zinfo_data"></div>
@@ -194,6 +196,55 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- 修改节点Modal -->
+<div class="modal fade" id="id_modal_update_data" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">关闭</span></button>
+                <h4 class="modal-title" id="myModalLabel">更新数据</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress" id="id_progress_update_data" hidden>
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45"
+                         aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    </div>
+                </div>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="id_input_update_path" class="col-sm-3 control-label">节点路径</label>
+
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="id_input_update_path" placeholder="节点路径"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_input_update_olddata" class="col-sm-3 control-label">节点旧数据</label>
+
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="id_input_update_olddata" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_input_update_newdata" class="col-sm-3 control-label">节点新数据</label>
+
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="id_input_update_newdata" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-warning" id="id_btn_save_update">保存更新</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- CONTENT-WRAPPER SECTION END-->
 <script type="application/javascript">

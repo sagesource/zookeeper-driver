@@ -4,6 +4,9 @@ $(function () {
 
     eventBtnCreateNode();
     eventBtnSaveNode();
+
+    eventBtnUpdateData();
+    eventBtnSaveUpdate();
 });
 
 /**
@@ -36,6 +39,7 @@ function initNodeTree() {
             beforeClick: function (treeId, treeNode) {
                 $('#id_node_name').html(treeNode.id);
                 $('#id_input_parent_path').val(treeNode.id);
+                $('#id_input_update_path').val(treeNode.id);
 
                 initNodeInfo(treeNode);
             }
@@ -70,6 +74,7 @@ function initNodeInfo(treeNode) {
             $('#id_zinfo_pzxid').html(stat.pzxid);
 
             $('#id_zinfo_data').html(response.data);
+            $('#id_input_update_olddata').val(response.data);
 
             $('#id_table_zinfo').show();
         } else {
@@ -122,10 +127,63 @@ function eventBtnSaveNode() {
                 });
                 $('#id_modal_create_node').modal('hide');
             } else {
+                $('#id_progress_save_node').hide();
+                $('#id_btn_save_node').removeAttr('disabled');
                 bootbox.alert(result.message);
             }
         }, function (error) {
+            $('#id_progress_save_node').hide();
+            $('#id_btn_save_node').removeAttr('disabled');
             bootbox.alert("节点创建失败");
         })
+    });
+}
+
+/**
+ * 更新数据按钮事件
+ */
+function eventBtnUpdateData() {
+    $('#id_btn_update_data').click(function () {
+        $('#id_btn_save_update').removeAttr('disabled');
+        $('#id_progress_update_data').hide();
+
+        $('#id_input_update_newdata').val('');
+    });
+}
+
+/**
+ * 保存数据更新按钮事件
+ */
+function eventBtnSaveUpdate() {
+    $('#id_btn_save_update').click(function () {
+        $(this).attr('disabled', true);
+        $('#id_progress_update_data').show();
+
+        var path = $('#id_input_update_path').val();
+        var data = $('#id_input_update_newdata').val();
+
+        var data = {
+            clientKey: clientKey,
+            path: path,
+            data: data
+        };
+
+        ajaxPost(editDataApi, data, function (result) {
+            if (result.code == 100) {
+                bootbox.alert("节点数据更新成功", function () {
+                    var obj = zTreeObj.getNodeByParam("id", path);
+                    initNodeInfo(obj);
+                });
+                $('#id_modal_update_data').modal('hide');
+            } else {
+                $('#id_progress_update_data').hide();
+                $('#id_btn_save_update').removeAttr('disabled');
+                bootbox.alert(result.message);
+            }
+        }, function (error) {
+            $('#id_progress_update_data').hide();
+            $(this).removeAttr('disabled');
+            bootbox.alert(result.message);
+        });
     });
 }

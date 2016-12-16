@@ -7,7 +7,8 @@ var useServerListApi = uri + "api/server/useServerList";
 var connectServerApi = uri + "api/link/connectServer";
 var childrenForZtreeApi = uri + "api/node/childrenForZtree";
 var readDataApi = uri + "api/node/readData";
-var createNodeApi = uri + "api/node/createNode"
+var createNodeApi = uri + "api/node/createNode";
+var editDataApi = uri + "api/node/editData";
 
 
 var nodeManagerPage = uri + "manager/node"
