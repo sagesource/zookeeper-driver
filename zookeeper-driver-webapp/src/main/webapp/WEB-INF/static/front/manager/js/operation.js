@@ -187,7 +187,7 @@ function eventBtnSaveUpdate() {
         }, function (error) {
             $('#id_progress_update_data').hide();
             $(this).removeAttr('disabled');
-            bootbox.alert(result.message);
+            bootbox.alert("节点更新失败");
         });
     });
 }
@@ -219,11 +219,21 @@ function eventBtnConfirmRemove() {
 
         ajaxPost(deleteNodeApi, data, function (result) {
             if (result.code == 100) {
-
+                bootbox.alert("节点删除成功", function () {
+                    var obj = zTreeObj.getNodeByParam("id", path);
+                    //动态添加节点
+                    zTreeObj.removeNode(obj, false);
+                });
+                $('#id_modal_remove_node').modal('hide');
             } else {
-
+                $('#id_progress_remove_node').hide();
+                $('#id_btn_confirm_remove').removeAttr('disabled');
+                bootbox.alert(result.message);
             }
         }, function (error) {
+            $('#id_progress_remove_node').hide();
+            $('#id_btn_confirm_remove').removeAttr('disabled');
+            bootbox.alert("节点删除失败");
         });
     });
 }
