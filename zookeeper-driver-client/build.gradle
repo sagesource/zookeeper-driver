@@ -2,9 +2,11 @@
 archivesBaseName = 'zookeeper-driver-client'
 
 dependencies {
+    compile(libraries.'zookeeper') {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
     compile(
             libraries.'zkCurator',
-            libraries.'zookeeper',
             libraries.'commons-pool2',
             project(':zookeeper-driver-helper')
     )

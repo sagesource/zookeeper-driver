@@ -129,7 +129,11 @@ subprojects { subproj ->
         //通用依赖
         compile(
                 libraries.'slf4j',
+                libraries.'log4jOverSlf4j',
+                libraries.'jclOverSlf4j',
+                libraries.'julToSlf4j',
                 libraries.'logback',
+                libraries.'logbackSpring',
                 libraries.'groovy',
                 libraries.'spring-context-support'
         )
