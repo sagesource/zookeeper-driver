@@ -32,6 +32,7 @@
     <beans profile="integrationtest">
         <context:property-placeholder
                 location="classpath:application.properties,classpath:*-integrationtest.properties"/>
+        <import resource="applicationContext-springfox.xml"/>
     </beans>
     <beans profile="production">
         <context:property-placeholder
