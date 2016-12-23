@@ -1,6 +1,6 @@
 package org.sagesource.zookeeperdriver.command.property;
 
-import org.sagesource.zookeeperdriver.command.CommandEnums;
+import org.sagesource.zookeeperdriver.command.enums.CommandEnums;
 
 /**
  * <p>服务器Socket连接配置</p>

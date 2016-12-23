@@ -1,5 +1,6 @@
 package test.org.sagesource.zookeeperdriver.command;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.junit.After;
@@ -63,6 +64,13 @@ public class ServerCommandTest extends BaseTest {
 		read("wchp");
 	}
 
+	@Test
+	public void mntrTest() throws Exception {
+		registerWatcher();
+		registerWatcher();
+		read("mntr");
+	}
+
 	//...........//
 	private void registerWatcher() throws Exception {
 		ZkClientConnectProperty zkClientConnectProperty = new ZkClientConnectProperty();
@@ -93,7 +101,7 @@ public class ServerCommandTest extends BaseTest {
 			reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 			String line;
 			while ((line = reader.readLine()) != null) {
-				System.out.println(line);
+				if (!StringUtils.isEmpty(line)) System.out.println(line);
 			}
 		} finally {
 			sock.close();

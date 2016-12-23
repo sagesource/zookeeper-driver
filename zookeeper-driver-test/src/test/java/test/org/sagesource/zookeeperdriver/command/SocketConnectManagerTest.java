@@ -1,7 +1,7 @@
 package test.org.sagesource.zookeeperdriver.command;
 
 import org.junit.Test;
-import org.sagesource.zookeeperdriver.command.CommandEnums;
+import org.sagesource.zookeeperdriver.command.enums.CommandEnums;
 import org.sagesource.zookeeperdriver.command.manager.SocketConnectManager;
 import org.sagesource.zookeeperdriver.command.property.SocketConnectProperty;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;

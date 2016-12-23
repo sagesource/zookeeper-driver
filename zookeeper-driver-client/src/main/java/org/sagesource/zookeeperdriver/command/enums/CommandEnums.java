@@ -1,4 +1,4 @@
-package org.sagesource.zookeeperdriver.command;
+package org.sagesource.zookeeperdriver.command.enums;
 
 /**
  * <p>ZK 四字管理命令</p>

@@ -1,5 +1,6 @@
 package org.sagesource.zookeeperdriver.command.manager;
 
+import org.apache.commons.lang3.StringUtils;
 import org.sagesource.zookeeperdriver.command.property.SocketConnectProperty;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
 import org.slf4j.Logger;
@@ -47,7 +48,7 @@ public class SocketConnectManager {
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String line;
 			while ((line = reader.readLine()) != null) {
-				result.add(line);
+				if (!StringUtils.isEmpty(line)) result.add(line);
 			}
 			return result;
 		} catch (IOException e) {
