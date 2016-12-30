@@ -4,8 +4,9 @@ import com.google.common.base.Splitter;
 import org.apache.commons.lang3.StringUtils;
 import org.sagesource.zookeeperdriver.command.dto.ZKWchs;
 import org.sagesource.zookeeperdriver.command.dto.ZkStat;
+import org.sagesource.zookeeperdriver.command.dto.ZkWchp;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>命令返回结果List处理Functions</p>
@@ -90,6 +91,42 @@ public class ListProcessorFunctions {
 		});
 
 		return zkWchs;
+	}
+
+	/**
+	 * 将wchp命令的返回结果转换为ZkWchp对象
+	 * <p>
+	 * /sage/wrapper<br/>
+	 * 0x2589a2c1c880063<br/>
+	 * 0x2589a2c1c880064
+	 * </p>
+	 *
+	 * @param wchpList
+	 * @return
+	 */
+	public static Map<String, ZkWchp> convertList2ZkWchp(List<String> wchpList) {
+		Map<String, ZkWchp> nodeWatcherMap = new HashMap<>();
+
+		String lastNodeKey = null;
+		for (String line : wchpList) {
+			if (StringUtils.startsWith(line, "/")) {
+				ZkWchp zkWchp = new ZkWchp();
+				zkWchp.setNode(line);
+				nodeWatcherMap.put(line, zkWchp);
+				lastNodeKey = line;
+				continue;
+			}
+
+			ZkWchp tmpZkWchp = nodeWatcherMap.get(lastNodeKey);
+			if (tmpZkWchp == null) tmpZkWchp = new ZkWchp();
+
+			List<String> sessions = tmpZkWchp.getSessions();
+			sessions.add(line.trim());
+			tmpZkWchp.setSessions(sessions);
+			nodeWatcherMap.put(lastNodeKey, tmpZkWchp);
+		}
+
+		return nodeWatcherMap;
 	}
 
 }

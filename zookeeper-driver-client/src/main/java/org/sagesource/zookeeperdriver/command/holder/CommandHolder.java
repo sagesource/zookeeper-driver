@@ -4,6 +4,7 @@ import com.google.common.base.Splitter;
 import org.apache.commons.lang3.StringUtils;
 import org.sagesource.zookeeperdriver.command.dto.ZKWchs;
 import org.sagesource.zookeeperdriver.command.dto.ZkStat;
+import org.sagesource.zookeeperdriver.command.dto.ZkWchp;
 import org.sagesource.zookeeperdriver.command.enums.CommandEnums;
 import org.sagesource.zookeeperdriver.command.manager.SocketConnectManager;
 import org.sagesource.zookeeperdriver.command.property.SocketConnectProperty;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>命令执行Holder</p>
@@ -58,6 +60,24 @@ public class CommandHolder {
 		return zkWchs;
 	}
 
+	/**
+	 * 执行wchp命令
+	 *
+	 * @param connStr
+	 * @return key-节点名称 | value-节点watcher的session
+	 *
+	 * @throws ZkDriverPlatformException
+	 */
+	public static Map<String, ZkWchp> execWchp(String connStr) throws ZkDriverPlatformException {
+		SocketConnectProperty connProperty = convertConnStr(connStr, CommandEnums.WCHP);
+
+		LOGGER.debug("connection string convert to property success! exec command:[{}]", connProperty.getCommand());
+
+		List<String>        wchpList       = SocketConnectManager.connectAndRead(connProperty);
+		Map<String, ZkWchp> nodeWatcherMap = ListProcessorFunctions.convertList2ZkWchp(wchpList);
+
+		return nodeWatcherMap;
+	}
 
 	//..............//
 

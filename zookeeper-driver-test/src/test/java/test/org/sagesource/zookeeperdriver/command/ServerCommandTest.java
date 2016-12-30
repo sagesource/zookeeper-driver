@@ -30,6 +30,7 @@ public class ServerCommandTest extends BaseTest {
 
 	private String host = "zk.sagesource.com";
 	private int    port = 2182;
+	private String node = "/sage/wrapper";
 
 	private ZkClientWrapper client;
 
@@ -52,27 +53,28 @@ public class ServerCommandTest extends BaseTest {
 
 	@Test
 	public void wchsTest() throws Exception {
-		registerWatcher();
+		registerWatcher(node);
+		registerWatcher("/");
 		Thread.sleep(1000);
 		read("wchs");
 	}
 
 	@Test
 	public void wchpTest() throws Exception {
-		registerWatcher();
-		registerWatcher();
+		registerWatcher(node);
+		registerWatcher("/");
 		read("wchp");
 	}
 
 	@Test
 	public void mntrTest() throws Exception {
-		registerWatcher();
-		registerWatcher();
+		registerWatcher(node);
+		registerWatcher(node);
 		read("mntr");
 	}
 
 	//...........//
-	private void registerWatcher() throws Exception {
+	private void registerWatcher(String node) throws Exception {
 		ZkClientConnectProperty zkClientConnectProperty = new ZkClientConnectProperty();
 		zkClientConnectProperty.setConnectionString(connectionString);
 
@@ -84,7 +86,7 @@ public class ServerCommandTest extends BaseTest {
 			public void process(WatchedEvent event) {
 				System.out.println("获取 two 节点 监听器 : " + event);
 			}
-		}).forPath("/sage/wrapper");
+		}).forPath(node);
 	}
 
 	//...........//

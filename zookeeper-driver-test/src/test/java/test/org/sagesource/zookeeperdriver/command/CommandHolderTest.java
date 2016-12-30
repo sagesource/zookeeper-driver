@@ -4,9 +4,12 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.junit.Test;
 import org.sagesource.zookeeperdriver.command.dto.ZKWchs;
 import org.sagesource.zookeeperdriver.command.dto.ZkStat;
+import org.sagesource.zookeeperdriver.command.dto.ZkWchp;
 import org.sagesource.zookeeperdriver.command.holder.CommandHolder;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
 import test.org.sagesource.zookeeperdriver.base.BaseTest;
+
+import java.util.Map;
 
 /**
  * <p></p>
@@ -29,6 +32,13 @@ public class CommandHolderTest extends BaseTest {
 	public void execWchsTest() throws ZkDriverPlatformException {
 		ZKWchs result = CommandHolder.execWchs(connStr);
 		System.out.println(ReflectionToStringBuilder.toString(result));
+	}
+
+	@Test
+	public void execWchpTest() throws ZkDriverPlatformException {
+		Map<String, ZkWchp> result = CommandHolder.execWchp(connStr);
+
+		result.keySet().forEach(key -> System.out.println(ReflectionToStringBuilder.toString(result.get(key))));
 	}
 
 }
