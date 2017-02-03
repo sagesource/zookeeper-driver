@@ -26,13 +26,25 @@ import java.util.Map;
 public class CommandHolder {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CommandHolder.class);
 
+	private CommandHolder() {
+	}
+
+	private static class SingletonHolder {
+		//静态初始化器，由JVM来保证线程安全
+		private static CommandHolder instance = new CommandHolder();
+	}
+
+	public static CommandHolder getInstance() {
+		return SingletonHolder.instance;
+	}
+
 	/**
 	 * 执行stat命令
 	 *
 	 * @param connStr 连接信息
 	 * @return
 	 */
-	public static ZkStat execStat(String connStr) throws ZkDriverPlatformException {
+	public ZkStat execStat(String connStr) throws ZkDriverPlatformException {
 		SocketConnectProperty connProperty = convertConnStr(connStr, CommandEnums.STAT);
 
 		LOGGER.debug("connection string convert to property success! exec command:[{}]", connProperty.getCommand());
@@ -49,7 +61,7 @@ public class CommandHolder {
 	 * @param connStr
 	 * @return
 	 */
-	public static ZKWchs execWchs(String connStr) throws ZkDriverPlatformException {
+	public ZKWchs execWchs(String connStr) throws ZkDriverPlatformException {
 		SocketConnectProperty connProperty = convertConnStr(connStr, CommandEnums.WCHS);
 
 		LOGGER.debug("connection string convert to property success! exec command:[{}]", connProperty.getCommand());
@@ -68,7 +80,7 @@ public class CommandHolder {
 	 *
 	 * @throws ZkDriverPlatformException
 	 */
-	public static Map<String, ZkWchp> execWchp(String connStr) throws ZkDriverPlatformException {
+	public Map<String, ZkWchp> execWchp(String connStr) throws ZkDriverPlatformException {
 		SocketConnectProperty connProperty = convertConnStr(connStr, CommandEnums.WCHP);
 
 		LOGGER.debug("connection string convert to property success! exec command:[{}]", connProperty.getCommand());

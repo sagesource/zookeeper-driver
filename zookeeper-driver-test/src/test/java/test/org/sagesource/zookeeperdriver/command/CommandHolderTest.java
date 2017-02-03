@@ -24,19 +24,19 @@ public class CommandHolderTest extends BaseTest {
 
 	@Test
 	public void execStatTest() throws ZkDriverPlatformException {
-		ZkStat result = CommandHolder.execStat(connStr);
+		ZkStat result = CommandHolder.getInstance().execStat(connStr);
 		System.out.println(ReflectionToStringBuilder.toString(result));
 	}
 
 	@Test
 	public void execWchsTest() throws ZkDriverPlatformException {
-		ZKWchs result = CommandHolder.execWchs(connStr);
+		ZKWchs result = CommandHolder.getInstance().execWchs(connStr);
 		System.out.println(ReflectionToStringBuilder.toString(result));
 	}
 
 	@Test
 	public void execWchpTest() throws ZkDriverPlatformException {
-		Map<String, ZkWchp> result = CommandHolder.execWchp(connStr);
+		Map<String, ZkWchp> result = CommandHolder.getInstance().execWchp(connStr);
 
 		result.keySet().forEach(key -> System.out.println(ReflectionToStringBuilder.toString(result.get(key))));
 	}
