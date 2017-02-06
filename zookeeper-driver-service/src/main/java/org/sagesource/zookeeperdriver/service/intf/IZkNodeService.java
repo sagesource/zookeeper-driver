@@ -4,6 +4,7 @@ import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
 import org.sagesource.zookeeperdriver.service.dto.ZkDataDto;
 import org.sagesource.zookeeperdriver.service.dto.ZkNodeDto;
+import org.sagesource.zookeeperdriver.service.dto.ZkNodeWatcherInfoDto;
 
 import java.util.List;
 
@@ -57,8 +58,8 @@ public interface IZkNodeService {
 	 * 更新节点数据
 	 *
 	 * @param clientKey
-	 * @param path   节点路径
-	 * @param data   更新数据
+	 * @param path      节点路径
+	 * @param data      更新数据
 	 * @throws Exception
 	 */
 	void editNodeData(String clientKey, String path, String data) throws ZkDriverBusinessException, ZkDriverPlatformException;
@@ -67,8 +68,20 @@ public interface IZkNodeService {
 	 * 删除节点
 	 *
 	 * @param clientKey
-	 * @param path   删除节点
+	 * @param path      删除节点
 	 * @throws Exception
 	 */
 	void deleteNode(String clientKey, String path) throws ZkDriverBusinessException, ZkDriverPlatformException;
+
+	/**
+	 * 查询节点的Watcher信息
+	 *
+	 * @param clientKey
+	 * @param path      节点路径
+	 * @return
+	 *
+	 * @throws ZkDriverBusinessException
+	 * @throws ZkDriverPlatformException
+	 */
+	List<ZkNodeWatcherInfoDto> findWatcherInfo(String clientKey, String path) throws ZkDriverBusinessException, ZkDriverPlatformException;
 }

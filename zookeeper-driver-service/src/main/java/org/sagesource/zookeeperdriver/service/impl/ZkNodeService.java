@@ -9,12 +9,15 @@ import org.sagesource.zookeeperdriver.helper.Constants;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
 import org.sagesource.zookeeperdriver.helper.logger.LoggerHelper;
+import org.sagesource.zookeeperdriver.mapper.ZkServerInfoMapper;
 import org.sagesource.zookeeperdriver.service.dto.ZkDataDto;
 import org.sagesource.zookeeperdriver.service.dto.ZkNodeDto;
+import org.sagesource.zookeeperdriver.service.dto.ZkNodeWatcherInfoDto;
 import org.sagesource.zookeeperdriver.service.intf.IZkNodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +34,9 @@ import java.util.List;
 @Service
 public class ZkNodeService implements IZkNodeService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ZkNodeService.class);
+
+	@Autowired
+	private ZkServerInfoMapper zkServerInfoMapper;
 
 	@Override
 	public boolean checkNodeExist(String clientKey, String path) throws ZkDriverPlatformException, ZkDriverBusinessException {
@@ -181,6 +187,25 @@ public class ZkNodeService implements IZkNodeService {
 			LOGGER.error(LoggerHelper.unknownException("删除节点失败 client_key=[{}],path=[{}]"), clientKey, path, e);
 			throw new ZkDriverPlatformException(e);
 		}
+	}
+
+	@Override
+	public List<ZkNodeWatcherInfoDto> findWatcherInfo(String clientKey, String path) throws ZkDriverBusinessException, ZkDriverPlatformException {
+		LOGGER.info("查询节点的Watcher信息 clientKey=[{}],path=[{}]", clientKey, path);
+
+		try {
+			if (StringUtils.isEmpty(clientKey)) throw new ZkDriverBusinessException("client key is null");
+			if (!baseCheckNodeExist(clientKey, path)) throw new ZkDriverBusinessException("节点不存在");
+
+			//1. 查询连接串信息
+			//2. 分割
+			//3.
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	//...............//

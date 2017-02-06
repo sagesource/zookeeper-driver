@@ -74,7 +74,19 @@
                 </button>
             </div>
             <div class="well well-sm" style="margin-top: 20px" id="id_zinfo_data"></div>
-
+            <div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info">扩展信息</button>
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Watcher总数</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="col-md-5 cls_node_operation">
             <h4 class="page-head-line">节点信息</h4>

@@ -248,4 +248,19 @@ public class NodeOperationApiController extends BaseApiController {
 		return baseResp;
 	}
 
+	/**
+	 * 查询节点的Watcher信息
+	 *
+	 * @param clientKey
+	 * @param path
+	 * @return
+	 *
+	 * @throws Exception
+	 */
+	@ApiOperation("Watcher信息查询")
+	@RequestMapping(value = "watcherInfo", method = RequestMethod.GET)
+	public BaseResp watcherInfo(@ApiParam("客户端client_key") @RequestParam String clientKey,
+	                            @ApiParam("创建路径") @RequestParam String path) throws Exception {
+return null;
+	}
 }
