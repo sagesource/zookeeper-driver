@@ -9,5 +9,12 @@ package org.sagesource.zookeeperdriver.helper;
  * </pre>
  */
 public interface Constants {
-	String CHARSET_UTF_8 = "UTF-8";
+	/**
+	 * UTF-8字符集名称
+	 */
+	String CHARSET_UTF_8  = "UTF-8";
+	/**
+	 * 逗号分隔符
+	 */
+	String COMMA_SEPARATE = ",";
 }

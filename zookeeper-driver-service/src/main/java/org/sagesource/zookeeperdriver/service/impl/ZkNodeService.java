@@ -5,6 +5,10 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.sagesource.zookeeperdriver.client.dto.ZkData;
 import org.sagesource.zookeeperdriver.client.dto.ZkNode;
 import org.sagesource.zookeeperdriver.client.pool.ClientPoolInvoke;
+import org.sagesource.zookeeperdriver.client.pool.ClientPoolOperation;
+import org.sagesource.zookeeperdriver.client.wrapper.ZkClientWrapper;
+import org.sagesource.zookeeperdriver.entity.ZkServerInfo;
+import org.sagesource.zookeeperdriver.entity.ZkServerInfoExample;
 import org.sagesource.zookeeperdriver.helper.Constants;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverBusinessException;
 import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException;
@@ -35,30 +39,24 @@ import java.util.List;
 public class ZkNodeService implements IZkNodeService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ZkNodeService.class);
 
-	@Autowired
-	private ZkServerInfoMapper zkServerInfoMapper;
-
 	@Override
-	public boolean checkNodeExist(String clientKey, String path) throws ZkDriverPlatformException, ZkDriverBusinessException {
+	public boolean checkNodeExist(String clientKey, String path) throws Exception {
 		LOGGER.info("判断节点是否存在 client_key=[{}],parentPath=[{}]", clientKey, path);
 
 		try {
 			if (StringUtils.isEmpty(clientKey)) throw new ZkDriverBusinessException("client key is null");
 
 			return baseCheckNodeExist(clientKey, path);
-		} catch (ZkDriverBusinessException e) {
-			throw e;
-		} catch (ZkDriverPlatformException e) {
-			LOGGER.error(LoggerHelper.platformException("判断节点是否存在失败 client_key=[{}],path=[{}]"), clientKey, path, e);
+		} catch (ZkDriverBusinessException | ZkDriverPlatformException e) {
 			throw e;
 		} catch (Exception e) {
 			LOGGER.error(LoggerHelper.unknownException("判断节点是否存在失败 client_key=[{}],path=[{}]"), clientKey, path, e);
-			throw new ZkDriverPlatformException(e);
+			throw e;
 		}
 	}
 
 	@Override
-	public List<ZkNodeDto> findChildrenNode(String clientKey, String parentPath) throws ZkDriverBusinessException, ZkDriverPlatformException {
+	public List<ZkNodeDto> findChildrenNode(String clientKey, String parentPath) throws Exception {
 		LOGGER.info("获得节点的子节点列表 client_key=[{}],parentPath=[{}]", clientKey, parentPath);
 		List<ZkNodeDto> result = new ArrayList<>();
 
@@ -74,10 +72,7 @@ public class ZkNodeService implements IZkNodeService {
 			});
 
 			return result;
-		} catch (ZkDriverBusinessException e) {
-			throw e;
-		} catch (ZkDriverPlatformException e) {
-			LOGGER.error(LoggerHelper.platformException("获得节点的子节点列表失败 client_key=[{}],parentPath=[{}]"), clientKey, parentPath, e);
+		} catch (ZkDriverBusinessException | ZkDriverPlatformException e) {
 			throw e;
 		} catch (Exception e) {
 			LOGGER.error(LoggerHelper.unknownException("获得节点的子节点列表失败 client_key=[{}],parentPath=[{}]"), clientKey, parentPath, e);
@@ -86,7 +81,7 @@ public class ZkNodeService implements IZkNodeService {
 	}
 
 	@Override
-	public ZkDataDto readNodeData(String clientKey, String path) throws ZkDriverBusinessException, ZkDriverPlatformException {
+	public ZkDataDto readNodeData(String clientKey, String path) throws Exception {
 		LOGGER.info("获取节点的数据 client_key=[{}],path=[{}]", clientKey, path);
 		try {
 			if (StringUtils.isEmpty(clientKey)) throw new ZkDriverBusinessException("client key is null");
@@ -99,10 +94,7 @@ public class ZkNodeService implements IZkNodeService {
 			dto.setVersion(data.getStat().getVersion());
 
 			return dto;
-		} catch (ZkDriverBusinessException e) {
-			throw e;
-		} catch (ZkDriverPlatformException e) {
-			LOGGER.error(LoggerHelper.platformException("获取节点的数据失败 client_key=[{}],path=[{}]"), clientKey, path, e);
+		} catch (ZkDriverBusinessException | ZkDriverPlatformException e) {
 			throw e;
 		} catch (Exception e) {
 			LOGGER.error(LoggerHelper.unknownException("获取节点的数据失败 client_key=[{}],path=[{}]"), clientKey, path, e);
@@ -111,7 +103,7 @@ public class ZkNodeService implements IZkNodeService {
 	}
 
 	@Override
-	public void createNode(String clientKey, String path, String data) throws ZkDriverBusinessException, ZkDriverPlatformException {
+	public void createNode(String clientKey, String path, String data) throws Exception {
 		LOGGER.info("创建节点 client_key=[{}],path=[{}],data=[{}]", clientKey, path, data);
 		try {
 			if (StringUtils.isEmpty(clientKey)) throw new ZkDriverBusinessException("client key is null");
@@ -123,10 +115,7 @@ public class ZkNodeService implements IZkNodeService {
 				return null;
 			});
 
-		} catch (ZkDriverBusinessException e) {
-			throw e;
-		} catch (ZkDriverPlatformException e) {
-			LOGGER.error(LoggerHelper.platformException("创建节点失败 client_key=[{}],path=[{}],data=[{}]"), clientKey, path, data, e);
+		} catch (ZkDriverBusinessException | ZkDriverPlatformException e) {
 			throw e;
 		} catch (Exception e) {
 			LOGGER.error(LoggerHelper.unknownException("创建节点失败 client_key=[{}],path=[{}],data=[{}]"), clientKey, path, data, e);
@@ -135,7 +124,7 @@ public class ZkNodeService implements IZkNodeService {
 	}
 
 	@Override
-	public void editNodeData(String clientKey, String path, String data) throws ZkDriverBusinessException, ZkDriverPlatformException {
+	public void editNodeData(String clientKey, String path, String data) throws Exception {
 		LOGGER.info("更新节点数据 client_key=[{}],path=[{}],data=[{}]", clientKey, path, data);
 		try {
 			if (StringUtils.isEmpty(clientKey)) throw new ZkDriverBusinessException("client key is null");
@@ -151,10 +140,7 @@ public class ZkNodeService implements IZkNodeService {
 				client.editData(path, data.getBytes(Constants.CHARSET_UTF_8), oldVersion);
 				return null;
 			});
-		} catch (ZkDriverBusinessException e) {
-			throw e;
-		} catch (ZkDriverPlatformException e) {
-			LOGGER.error(LoggerHelper.platformException("更新节点数据失败 client_key=[{}],path=[{}],data=[{}]"), clientKey, path, data, e);
+		} catch (ZkDriverBusinessException | ZkDriverPlatformException e) {
 			throw e;
 		} catch (Exception e) {
 			LOGGER.error(LoggerHelper.unknownException("更新节点数据失败 client_key=[{}],path=[{}],data=[{}]"), clientKey, path, data, e);
@@ -163,7 +149,7 @@ public class ZkNodeService implements IZkNodeService {
 	}
 
 	@Override
-	public void deleteNode(String clientKey, String path) throws ZkDriverBusinessException, ZkDriverPlatformException {
+	public void deleteNode(String clientKey, String path) throws Exception {
 		LOGGER.info("删除节点 client_key=[{}],path=[{}]", clientKey, path);
 
 		try {
@@ -178,34 +164,12 @@ public class ZkNodeService implements IZkNodeService {
 				client.delete(path, true);
 				return null;
 			});
-		} catch (ZkDriverBusinessException e) {
-			throw e;
-		} catch (ZkDriverPlatformException e) {
-			LOGGER.error(LoggerHelper.platformException("删除节点失败 client_key=[{}],path=[{}]"), clientKey, path, e);
+		} catch (ZkDriverBusinessException | ZkDriverPlatformException e) {
 			throw e;
 		} catch (Exception e) {
 			LOGGER.error(LoggerHelper.unknownException("删除节点失败 client_key=[{}],path=[{}]"), clientKey, path, e);
 			throw new ZkDriverPlatformException(e);
 		}
-	}
-
-	@Override
-	public List<ZkNodeWatcherInfoDto> findWatcherInfo(String clientKey, String path) throws ZkDriverBusinessException, ZkDriverPlatformException {
-		LOGGER.info("查询节点的Watcher信息 clientKey=[{}],path=[{}]", clientKey, path);
-
-		try {
-			if (StringUtils.isEmpty(clientKey)) throw new ZkDriverBusinessException("client key is null");
-			if (!baseCheckNodeExist(clientKey, path)) throw new ZkDriverBusinessException("节点不存在");
-
-			//1. 查询连接串信息
-			//2. 分割
-			//3.
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
 	}
 
 	//...............//

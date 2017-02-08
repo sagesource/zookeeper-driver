@@ -19,7 +19,7 @@ public interface IZkClientService {
 	 *
 	 * @param clientKey
 	 */
-	ZkClientWrapper lineToZookeeper(String clientKey) throws ZkDriverBusinessException, ZkDriverPlatformException;
+	ZkClientWrapper lineToZookeeper(String clientKey) throws Exception;
 
 	/**
 	 * 关闭客户端连接

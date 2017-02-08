@@ -34,7 +34,7 @@ public class ZkServerService implements IZkServerService {
 	private ZkServerInfoMapper zkServerInfoMapper;
 
 	@Override
-	public List<ZkServerInfoDto> useServerList() throws ZkDriverBusinessException, ZkDriverPlatformException {
+	public List<ZkServerInfoDto> useServerList() throws Exception {
 		LOGGER.info("查询正在使用的服务列表");
 
 		try {

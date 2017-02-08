@@ -25,7 +25,7 @@ public interface IZkNodeService {
 	 * @param path      待检查节点
 	 * @return true:存在 false:不存在
 	 */
-	boolean checkNodeExist(String clientKey, String path) throws ZkDriverPlatformException, ZkDriverBusinessException;
+	boolean checkNodeExist(String clientKey, String path) throws Exception;
 
 	/**
 	 * 获得节点的子节点列表
@@ -34,7 +34,7 @@ public interface IZkNodeService {
 	 * @param parentPath 当前节点
 	 * @return
 	 */
-	List<ZkNodeDto> findChildrenNode(String clientKey, String parentPath) throws ZkDriverBusinessException, ZkDriverPlatformException;
+	List<ZkNodeDto> findChildrenNode(String clientKey, String parentPath) throws Exception;
 
 	/**
 	 * 获取节点的数据
@@ -43,7 +43,7 @@ public interface IZkNodeService {
 	 * @param path      当前节点
 	 * @return
 	 */
-	ZkDataDto readNodeData(String clientKey, String path) throws ZkDriverBusinessException, ZkDriverPlatformException;
+	ZkDataDto readNodeData(String clientKey, String path) throws Exception;
 
 	/**
 	 * 创建节点
@@ -52,7 +52,7 @@ public interface IZkNodeService {
 	 * @param path      节点
 	 * @param data      数据
 	 */
-	void createNode(String clientKey, String path, String data) throws ZkDriverBusinessException, ZkDriverPlatformException;
+	void createNode(String clientKey, String path, String data) throws Exception;
 
 	/**
 	 * 更新节点数据
@@ -62,7 +62,7 @@ public interface IZkNodeService {
 	 * @param data      更新数据
 	 * @throws Exception
 	 */
-	void editNodeData(String clientKey, String path, String data) throws ZkDriverBusinessException, ZkDriverPlatformException;
+	void editNodeData(String clientKey, String path, String data) throws Exception;
 
 	/**
 	 * 删除节点
@@ -71,17 +71,5 @@ public interface IZkNodeService {
 	 * @param path      删除节点
 	 * @throws Exception
 	 */
-	void deleteNode(String clientKey, String path) throws ZkDriverBusinessException, ZkDriverPlatformException;
-
-	/**
-	 * 查询节点的Watcher信息
-	 *
-	 * @param clientKey
-	 * @param path      节点路径
-	 * @return
-	 *
-	 * @throws ZkDriverBusinessException
-	 * @throws ZkDriverPlatformException
-	 */
-	List<ZkNodeWatcherInfoDto> findWatcherInfo(String clientKey, String path) throws ZkDriverBusinessException, ZkDriverPlatformException;
+	void deleteNode(String clientKey, String path) throws Exception;
 }

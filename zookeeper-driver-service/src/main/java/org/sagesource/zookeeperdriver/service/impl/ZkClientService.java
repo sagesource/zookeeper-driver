@@ -41,7 +41,7 @@ public class ZkClientService implements IZkClientService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public ZkClientWrapper lineToZookeeper(String clientKey) throws ZkDriverBusinessException, ZkDriverPlatformException {
+	public ZkClientWrapper lineToZookeeper(String clientKey) throws Exception {
 		try {
 			LOGGER.info("查询zk服务配置 client_key=[{}]", clientKey);
 
@@ -74,12 +74,9 @@ public class ZkClientService implements IZkClientService {
 			return client;
 		} catch (ZkDriverBusinessException e) {
 			throw e;
-		} catch (ZkDriverPlatformException e) {
-			LOGGER.error(LoggerHelper.platformException("创建zk客户端连接失败 client_key=[{}]"), clientKey, e);
-			throw e;
 		} catch (Exception e) {
 			LOGGER.error(LoggerHelper.unknownException("创建zk客户端连接失败 client_key=[{}]"), clientKey, e);
-			throw new ZkDriverPlatformException(e);
+			throw e;
 		}
 	}
 

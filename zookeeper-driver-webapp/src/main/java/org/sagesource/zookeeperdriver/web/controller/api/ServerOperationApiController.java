@@ -45,7 +45,7 @@ public class ServerOperationApiController extends BaseApiController {
 	 */
 	@ApiOperation(value = "查询可用server列表")
 	@RequestMapping(value = "useServerList", method = RequestMethod.GET)
-	public BaseResp<List<ZkServerUseInfoResp>> useServerList() throws ZkDriverBusinessException, ZkDriverPlatformException {
+	public BaseResp<List<ZkServerUseInfoResp>> useServerList() throws Exception {
 		BaseResp<List<ZkServerUseInfoResp>> resp = new BaseResp<>();
 		resp.setCode(HttpRespEnum.R_100.getCode());
 		resp.setMessage(HttpRespEnum.R_100.getMessage());

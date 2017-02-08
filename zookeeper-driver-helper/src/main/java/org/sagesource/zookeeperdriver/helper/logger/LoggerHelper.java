@@ -10,12 +10,6 @@ package org.sagesource.zookeeperdriver.helper.logger;
  */
 public class LoggerHelper {
 
-	public static String platformException(String logDesc) {
-		StringBuilder builder = new StringBuilder("[platform_exception]");
-		builder.append(logDesc);
-		return builder.toString();
-	}
-
 	public static String unknownException(String logDesc) {
 		StringBuilder builder = new StringBuilder("[unknown_exception]");
 		builder.append(logDesc);

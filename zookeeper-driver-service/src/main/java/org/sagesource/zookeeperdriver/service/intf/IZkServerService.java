@@ -24,6 +24,6 @@ public interface IZkServerService {
 	 * @throws ZkDriverBusinessException
 	 * @throws ZkDriverPlatformException
 	 */
-	List<ZkServerInfoDto> useServerList() throws ZkDriverBusinessException, ZkDriverPlatformException;
+	List<ZkServerInfoDto> useServerList() throws Exception;
 
 }
