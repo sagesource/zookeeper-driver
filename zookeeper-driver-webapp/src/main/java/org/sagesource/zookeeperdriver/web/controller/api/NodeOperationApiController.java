@@ -10,12 +10,15 @@ import org.sagesource.zookeeperdriver.helper.exception.ZkDriverPlatformException
 import org.sagesource.zookeeperdriver.helper.node.NodePathHelper;
 import org.sagesource.zookeeperdriver.service.dto.ZkDataDto;
 import org.sagesource.zookeeperdriver.service.dto.ZkNodeDto;
+import org.sagesource.zookeeperdriver.service.dto.ZkNodeWatcherInfoDto;
 import org.sagesource.zookeeperdriver.service.intf.IZkNodeService;
+import org.sagesource.zookeeperdriver.service.intf.IZkNodeWatcherService;
 import org.sagesource.zookeeperdriver.web.controller.base.BaseApiController;
 import org.sagesource.zookeeperdriver.web.vo.base.BaseResp;
 import org.sagesource.zookeeperdriver.web.vo.response.NodeChildrenResp;
 import org.sagesource.zookeeperdriver.web.vo.response.NodeChildrenRespForZtree;
 import org.sagesource.zookeeperdriver.web.vo.response.NodeDataResp;
+import org.sagesource.zookeeperdriver.web.vo.response.NodeWatcherInfoResp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -43,7 +46,9 @@ public class NodeOperationApiController extends BaseApiController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(NodeOperationApiController.class);
 
 	@Autowired
-	private IZkNodeService zkNodeService;
+	private IZkNodeService        zkNodeService;
+	@Autowired
+	private IZkNodeWatcherService zkNodeWatcherService;
 
 	/**
 	 * 查询子节点列表-Ztree
@@ -259,8 +264,31 @@ public class NodeOperationApiController extends BaseApiController {
 	 */
 	@ApiOperation("Watcher信息查询")
 	@RequestMapping(value = "watcherInfo", method = RequestMethod.GET)
-	public BaseResp watcherInfo(@ApiParam("客户端client_key") @RequestParam String clientKey,
-	                            @ApiParam("创建路径") @RequestParam String path) throws Exception {
-return null;
+	public BaseResp<NodeWatcherInfoResp> watcherInfo(@ApiParam("客户端client_key") @RequestParam String clientKey,
+	                                                 @ApiParam("创建路径") @RequestParam String path) throws Exception {
+		NodeWatcherInfoResp           nodeWatcherInfoResp = new NodeWatcherInfoResp();
+		BaseResp<NodeWatcherInfoResp> baseResp            = new BaseResp<>();
+		baseResp.setCode(HttpRespEnum.R_100.getCode());
+		baseResp.setMessage(HttpRespEnum.R_100.getMessage());
+
+		try {
+			// 1. 校验节点是否存在
+			zkNodeService.checkNodeExist(clientKey, path);
+
+			// 2. 汇总节点的watcher总数
+			List<ZkNodeWatcherInfoDto> watcherInfoList = zkNodeWatcherService.findWatcherInfo(clientKey, path);
+			final long[]               total           = {0L};
+			watcherInfoList.forEach(watcherInfo -> {
+				total[0] = total[0] + watcherInfo.getWatcherTotal();
+			});
+			nodeWatcherInfoResp.setWatcherTotal(total[0]);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			baseResp.getRespcontext().setRespTime(System.currentTimeMillis());
+		}
+
+		baseResp.setResponse(nodeWatcherInfoResp);
+		return baseResp;
 	}
 }
